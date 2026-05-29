@@ -32,7 +32,7 @@ java {
 }
 
 application {
-    mainClass = "org.example.App"
+    mainClass.set("it.unicam.cs.mpgc.rpg129696.App")
     applicationDefaultJvmArgs = listOf(
         "--module-path", configurations.runtimeClasspath.get().asPath,
         "--add-modules", "javafx.controls,javafx.fxml,javafx.media"
