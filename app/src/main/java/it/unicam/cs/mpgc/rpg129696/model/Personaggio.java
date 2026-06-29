@@ -26,5 +26,23 @@ public abstract class Personaggio {
     public int getDifesa() {return  difesa;}
     public boolean isVivo() {return vivo;}
 
+    public void subisciDanno(int danno) {
+        int dannoEffettivo = Math.max (1, danno - difesa);
+        this.hp -= dannoEffettivo;
+        if (this.hp <= 0) {
+            this.vivo = false;
+        }
+    }
+
+    public void attacca(Personaggio bersaglio) {
+        bersaglio.subisciDanno(this.attacco);
+    }
+
+    public void curati (int quantita) {
+        this.hp += quantita;
+        if (this.hp > this.maxHp) {
+            this.hp = this.maxHp;
+        }
+    }
 
 }

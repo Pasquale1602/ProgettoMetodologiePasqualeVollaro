@@ -1,7 +1,8 @@
-package it.unicam.cs.mpgc.rpg129696.model;
+package it.unicam.cs.mpgc.rpg129696.model.giocabile;
+import it.unicam.cs.mpgc.rpg129696.model.PersonaggioGiocabile;
 import it.unicam.cs.mpgc.rpg129696.model.abilita.ColpoAlleSpalle;
 
-public class CercatoreCadaveri extends PersonaggioGiocabile{
+public class CercatoreCadaveri extends PersonaggioGiocabile {
 
     public CercatoreCadaveri(String nome) {
 

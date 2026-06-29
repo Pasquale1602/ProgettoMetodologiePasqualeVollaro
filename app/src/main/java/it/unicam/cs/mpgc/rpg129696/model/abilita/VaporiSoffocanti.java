@@ -6,5 +6,6 @@ public class VaporiSoffocanti implements Abilita{
     @Override
     public void eseguiAbilita(Personaggio bersaglio) {
 
+
     }
 }
