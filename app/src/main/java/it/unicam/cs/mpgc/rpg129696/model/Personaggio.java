@@ -1,7 +1,5 @@
 package it.unicam.cs.mpgc.rpg129696.model;
 
-import it.unicam.cs.mpgc.rpg129696.model.abilita.Abilita;
-
 public abstract class Personaggio {
 
     private String nome;
@@ -24,6 +22,11 @@ public abstract class Personaggio {
     public int getMaxHp() {return maxHp;}
     public int getAttacco() {return attacco;}
     public int getDifesa() {return  difesa;}
+
+    public void setHp(int hp) {this.hp=hp;}
+    public void setAttacco(int attacco) {this.attacco=attacco;}
+    public void setMaxHp(int maxHp) {this.maxHp=maxHp;}
+    public void setDifesa(int difesa) {this.difesa=difesa;}
     public boolean isVivo() {return vivo;}
 
     public void subisciDanno(int danno) {
