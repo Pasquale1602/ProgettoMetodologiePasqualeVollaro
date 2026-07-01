@@ -1,28 +1,23 @@
+
+
 plugins {
     application
+    id("org.openjfx.javafxplugin") version "0.1.0"
 }
 
 repositories {
     mavenCentral()
 }
 
-val javafxVersion = "23"
-val os = System.getProperty("os.name").lowercase()
-val platform = when {
-    os.contains("win") -> "win"
-    os.contains("mac") -> "mac"
-    else -> "linux"
-}
-
 dependencies {
     testImplementation(libs.junit)
     implementation(libs.guava)
+    implementation("com.google.code.gson:gson:2.11.0")
+}
 
-    implementation("org.openjfx:javafx-controls:$javafxVersion:$platform")
-    implementation("org.openjfx:javafx-fxml:$javafxVersion:$platform")
-    implementation("org.openjfx:javafx-media:$javafxVersion:$platform")
-    implementation("org.openjfx:javafx-graphics:$javafxVersion:$platform")
-    implementation("org.openjfx:javafx-base:$javafxVersion:$platform")
+javafx {
+    version = "23"
+    modules = listOf("javafx.controls", "javafx.fxml", "javafx.media")
 }
 
 java {
@@ -32,9 +27,5 @@ java {
 }
 
 application {
-    mainClass.set("it.unicam.cs.mpgc.rpg129696.App")
-    applicationDefaultJvmArgs = listOf(
-        "--module-path", configurations.runtimeClasspath.get().asPath,
-        "--add-modules", "javafx.controls,javafx.fxml,javafx.media"
-    )
+    mainClass = "it.unicam.cs.mpgc.rpg129696.App"
 }
