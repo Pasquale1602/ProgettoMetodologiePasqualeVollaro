@@ -69,6 +69,15 @@ public abstract class PersonaggioBase implements Danneggiabile {
     public void aggiornaTurnoModificatori () {
         modificatoriTemporanei.forEach(ModificatoreTemporaneo::tick);
         modificatoriTemporanei.removeIf(ModificatoreTemporaneo::isScaduto);
+
+        //Dopo aver rimosso i modificatori controllo che gli HP siano ancora validi
+        normalizzaSalute();
+    }
+    private void normalizzaSalute() {
+        int maxHp = getStatisticheAttuali().getHpMassimi();
+        if (this.hpAttuali > maxHp) {
+            this.hpAttuali = maxHp;
+        }
     }
 
 

@@ -1,9 +1,11 @@
 package it.unicam.cs.mpgc.rpg129696.controlli;
 
+import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.PersonaggioBase;
+
 public class ComportamentoAggressivo implements ComportamentoNemico {
 
     @Override
-    public void eseguiTurno(Personaggio nemico, Personaggio bersaglio) {
-        nemico.attacca(bersaglio);
+    public void eseguiTurno(PersonaggioBase nemico, PersonaggioBase bersaglio) {
+
     }
 }

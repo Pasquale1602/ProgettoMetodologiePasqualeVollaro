@@ -27,12 +27,15 @@ public class ModificatoreTemporaneo {
     public Modificatore getModificatore() {
         return modificatore;
     }
+
     public int getTurniRimanenti() {
         return turniRimanenti;
     }
+
     public boolean isScaduto() {
         return turniRimanenti <= 0;
     }
+
     public void tick() {
         turniRimanenti--;
     }

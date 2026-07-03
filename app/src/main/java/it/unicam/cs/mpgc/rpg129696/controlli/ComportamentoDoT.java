@@ -1,7 +1,5 @@
 package it.unicam.cs.mpgc.rpg129696.controlli;
 
-import it.unicam.cs.mpgc.rpg129696.modelli.effetti.VelenoProgressivo;
-
 public class ComportamentoDoT implements ComportamentoNemico {
 
     private boolean velenoAttivo = false;

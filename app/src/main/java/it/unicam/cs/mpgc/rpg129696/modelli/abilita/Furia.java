@@ -1,7 +1,5 @@
 package it.unicam.cs.mpgc.rpg129696.modelli.abilita;
 
-import it.unicam.cs.mpgc.rpg129696.modelli.effetti.BuffAttacco;
-import it.unicam.cs.mpgc.rpg129696.modelli.effetti.DebuffDifesa;
 import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.PersonaggioBase;
 
 public class Furia implements Abilita{

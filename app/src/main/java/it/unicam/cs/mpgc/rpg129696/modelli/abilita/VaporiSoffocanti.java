@@ -1,6 +1,5 @@
 package it.unicam.cs.mpgc.rpg129696.modelli.abilita;
 
-import it.unicam.cs.mpgc.rpg129696.modelli.effetti.VelenoProgressivo;
 import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.PersonaggioBase;
 
 public class VaporiSoffocanti implements Abilita{

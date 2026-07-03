@@ -1,0 +1,46 @@
+{
+  "nemici": [
+    {
+      "nome": "Aberrazione",
+      "hpBase": 200,
+      "attaccoBase": 28,
+      "difesaBase": 12,
+      "tipoComportamento": "BOSS"
+    },
+    {
+      "nome": "Contaminato",
+      "hpBase": 45,
+      "attaccoBase": 12,
+      "difesaBase": 4,
+      "tipoComportamento": "DOT"
+    },
+    {
+      "nome": "Fanatico",
+      "hpBase": 80,
+      "attaccoBase": 15,
+      "difesaBase": 18,
+      "tipoComportamento": "DIFENSIVO"
+    },
+    {
+      "nome": "Infetto",
+      "hpBase": 40,
+      "attaccoBase": 8,
+      "difesaBase": 3,
+      "tipoComportamento": "AGGRESSIVO"
+    },
+    {
+      "nome": "Mutato",
+      "hpBase": 120,
+      "attaccoBase": 18,
+      "difesaBase": 8,
+      "tipoComportamento": "AGGRESSIVO"
+    },
+    {
+      "nome": "Saccheggiatore",
+      "hpBase": 50,
+      "attaccoBase": 22,
+      "difesaBase": 3,
+      "tipoComportamento": "AGGRESSIVO"
+    }
+  ]
+}

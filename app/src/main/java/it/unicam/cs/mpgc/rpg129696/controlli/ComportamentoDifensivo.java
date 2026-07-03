@@ -1,7 +1,5 @@
 package it.unicam.cs.mpgc.rpg129696.controlli;
 
-import it.unicam.cs.mpgc.rpg129696.modelli.effetti.BuffDifesa;
-
 public class ComportamentoDifensivo implements ComportamentoNemico{
 
     private boolean buffAttivo= false;
