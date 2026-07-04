@@ -9,7 +9,7 @@ import it.unicam.cs.mpgc.rpg129696.controlli.ComportamentoDifensivo;
 import it.unicam.cs.mpgc.rpg129696.controlli.ComportamentoBoss;
 import it.unicam.cs.mpgc.rpg129696.modelli.enumerati.TipoComportamento;
 import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.Nemico;
-import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.Statistica;
+import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.Statistiche;
 import it.unicam.cs.mpgc.rpg129696.persistenza.dto.NemicoDTO;
 
 import java.io.InputStream;
@@ -57,7 +57,7 @@ public class NemicoLoader {
      * @return il nemico pronto per il combattimento
      */
     private Nemico converti(NemicoDTO dto) {
-        Statistica statistiche = new Statistica(dto.attaccoBase, dto.difesaBase, dto.hpBase);
+        Statistiche statistiche = new Statistiche(dto.attaccoBase, dto.difesaBase, dto.hpBase);
         ComportamentoNemico comportamento = creaComportamento(dto.tipoComportamento);
         return new Nemico(dto.nome, statistiche, dto.xp, comportamento);
     }

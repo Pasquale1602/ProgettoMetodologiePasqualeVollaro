@@ -14,6 +14,8 @@ public class ComportamentoDoT implements ComportamentoNemico {
         if (!isAvvelenato) {
             ModificatoreTemporaneo modificatoreVeleno = new ModificatoreTemporaneo(new ModificatoreVeleno(6),
                     3);
+            bersaglio.aggiungiModificatore(modificatoreVeleno);
+            isAvvelenato = true;
         }
         nemico.attacca(bersaglio);
     }
