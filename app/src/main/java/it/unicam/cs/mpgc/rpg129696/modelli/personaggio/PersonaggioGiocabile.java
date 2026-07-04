@@ -7,8 +7,8 @@ public abstract class PersonaggioGiocabile extends PersonaggioBase{
     private Abilita abilita;
 
 
-    protected PersonaggioGiocabile(String nome, Statistica statisticaBase, Abilita abilita) {
-        super(nome, statisticaBase);
+    protected PersonaggioGiocabile(String nome, Statistiche statisticheBase, Abilita abilita) {
+        super(nome, statisticheBase);
     }
 
 

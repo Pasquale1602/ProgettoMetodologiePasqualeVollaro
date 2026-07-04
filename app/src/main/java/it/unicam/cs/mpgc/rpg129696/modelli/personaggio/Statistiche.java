@@ -1,24 +1,24 @@
 package it.unicam.cs.mpgc.rpg129696.modelli.personaggio;
 
-public class Statistica {
+public class Statistiche {
 
     private int attacco;
     private int difesa;
     private int hpMassimi;
 
-    public Statistica() {
+    public Statistiche() {
         this.attacco = 0;
         this.difesa = 0;
         this.hpMassimi = 0;
     }
 
-    public Statistica(int attacco, int difesa, int hpMassimi) {
+    public Statistiche(int attacco, int difesa, int hpMassimi) {
         this.attacco = attacco;
         this.difesa = difesa;
         this.hpMassimi = hpMassimi;
     }
 
-    public Statistica(Statistica other) {
+    public Statistiche(Statistiche other) {
         this.attacco = other.attacco;
         this.difesa = other.difesa;
         this.hpMassimi = other.hpMassimi;

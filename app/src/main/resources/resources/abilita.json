@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "nome": "Furia",
+    "tipo": "FURIA",
+    "descrizione": "Aumenta l'attacco ma riduce la difesa per 3 turni",
+    "valoreAttacco": 15,
+    "valoreDifesa": -8,
+    "turni": 3
+  },
+  {
+    "id": 2,
+    "nome": "Chiamata alle Armi",
+    "tipo": "CHIAMATA_ALLE_ARMI",
+    "descrizione": "Cura il personaggio e aumenta la difesa per 3 turni",
+    "valoreCura": 30,
+    "valoreDifesa": 10,
+    "turni": 3
+  },
+  {
+    "id": 3,
+    "nome": "Vapori Soffocanti",
+    "tipo": "VAPORI_SOFFOCANTI",
+    "descrizione": "Applica veleno al nemico per 4 turni",
+    "dannoVeleno": 8,
+    "turni": 4
+  },
+  {
+    "id": 4,
+    "nome": "Colpo alle Spalle",
+    "tipo": "COLPO_ALLE_SPALLE",
+    "descrizione": "Infligge danno critico istantaneo al nemico",
+    "moltiplicatoreCritico": 2
+  }
+]

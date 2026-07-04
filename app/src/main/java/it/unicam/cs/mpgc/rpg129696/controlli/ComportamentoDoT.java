@@ -1,15 +1,19 @@
 package it.unicam.cs.mpgc.rpg129696.controlli;
 
+import it.unicam.cs.mpgc.rpg129696.modelli.modificatori.ModificatoreTemporaneo;
+import it.unicam.cs.mpgc.rpg129696.modelli.modificatori.ModificatoreVeleno;
+import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.PersonaggioBase;
+
 public class ComportamentoDoT implements ComportamentoNemico {
 
-    private boolean velenoAttivo = false;
+    private boolean isAvvelenato = false;
 
     @Override
-    public void eseguiTurno(Personaggio nemico, Personaggio bersaglio) {
+    public void eseguiTurno(PersonaggioBase nemico, PersonaggioBase bersaglio) {
 
-        if (!(velenoAttivo)) {
-            new VelenoProgressivo(3, 5).applica(bersaglio);
-            velenoAttivo = true;
+        if (!isAvvelenato) {
+            ModificatoreTemporaneo modificatoreVeleno = new ModificatoreTemporaneo(new ModificatoreVeleno(6),
+                    3);
         }
         nemico.attacca(bersaglio);
     }

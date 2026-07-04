@@ -1,6 +1,6 @@
 package it.unicam.cs.mpgc.rpg129696.modelli.modificatori;
 
-import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.Statistica;
+import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.Statistiche;
 
 import java.util.List;
 
@@ -22,9 +22,9 @@ public class SistemaModificatori {
      * @param modifiers the list of active modifiers to apply
      * @return a new Stats instance with all modifiers applied
      */
-    public static Statistica calcola (Statistica baseStats, List<Modificatore> modifiers) {
+    public static Statistiche calcola (Statistiche baseStats, List<Modificatore> modifiers) {
 
-        Statistica finalStats = new Statistica(baseStats);
+        Statistiche finalStats = new Statistiche(baseStats);
 
         for (Modificatore modifier : modifiers) {
             modifier.applica(finalStats);

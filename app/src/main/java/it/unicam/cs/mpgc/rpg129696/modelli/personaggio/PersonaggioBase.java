@@ -11,33 +11,37 @@ import java.util.List;
 public abstract class PersonaggioBase implements Danneggiabile {
 
     private final String nome;
-    private final Statistica statisticaBase;
+    private final Statistiche statisticheBase;
     private int hpAttuali;
     private final List<ModificatoreTemporaneo> modificatoriTemporanei = new ArrayList<>();
 
 
-    protected PersonaggioBase(String nome, Statistica statisticaBase) {
+    protected PersonaggioBase(String nome, Statistiche statisticheBase) {
 
-        this.statisticaBase = statisticaBase;
+        this.statisticheBase = statisticheBase;
         this.nome = nome;
-        this.hpAttuali = statisticaBase.getHpMassimi();
+        this.hpAttuali = statisticheBase.getHpMassimi();
     }
 
 
-    public Statistica getStatisticheAttuali() {
+    public Statistiche getStatisticheAttuali() {
         List<Modificatore> tutti = new ArrayList<>();
         for (ModificatoreTemporaneo mt : modificatoriTemporanei) {
             tutti.add(mt.getModificatore());
         }
-        return SistemaModificatori.calcola(statisticaBase, tutti);
+        return SistemaModificatori.calcola(statisticheBase, tutti);
     }
 
 
     public String getNome() { return nome; }
     public int getHpAttuali() { return hpAttuali; }
-    public Statistica getStatisticheBase () { return statisticaBase; }
+    public Statistiche getStatisticheBase () { return statisticheBase; }
 
 
+    public void attacca (PersonaggioBase bersaglio) {
+        int danno = this.getStatisticheAttuali().getAttacco();
+        bersaglio.prendiDanno(danno);
+    }
     public void cura (int quantita) {
         if (quantita <= 0) throw new IllegalArgumentException
                 ("la quantità di cura non può essere minore o uguale di 0");
@@ -66,13 +70,32 @@ public abstract class PersonaggioBase implements Danneggiabile {
     }
 
 
+    /**
+     * <p>Per ogni modificatore temporaneo attivo:
+     * <ol>
+     * <li> Applica l'effetto del modificatore sul personaggio</li>
+     * <li> Decrementa il contatore dei turni rimanenti</li>
+     * <li> Rimuove i modificatori scaduti</li>
+     *</ol>
+     * Al termine normalizza gli HP attuali per gestire i casi in cui
+     * gli HpAttuali superino quelli massimi consentiti.</p>
+     *</ol>
+     * <p> Deve essere chiamato una volta per turno dal gestore del combattimento. </p>
+     */
     public void aggiornaTurnoModificatori () {
+        modificatoriTemporanei.forEach(mt -> mt.getModificatore().applicaSuPersonaggio(this));
         modificatoriTemporanei.forEach(ModificatoreTemporaneo::tick);
         modificatoriTemporanei.removeIf(ModificatoreTemporaneo::isScaduto);
 
         //Dopo aver rimosso i modificatori controllo che gli HP siano ancora validi
         normalizzaSalute();
     }
+
+    /**
+     * normalizzaSalute() serve nel caso in cui con un potenziamento di hp,
+     * il giocatore rimanga con gli hpAttuali > hpMassimi.
+     *Questo metodo normalizza allora gli hpAttuali a quelli massimi.
+     */
     private void normalizzaSalute() {
         int maxHp = getStatisticheAttuali().getHpMassimi();
         if (this.hpAttuali > maxHp) {
@@ -80,12 +103,16 @@ public abstract class PersonaggioBase implements Danneggiabile {
         }
     }
 
-
+    /**
+     * Rimuove ogni tipo di modificatore temporaneo
+     */
     public void rimuoviModificatori() {
         modificatoriTemporanei.clear();
     }
 
-
+    /**
+     * @return Oggetto di tipo Collection contenente tutti i modificatori temporanei
+     */
     public List <ModificatoreTemporaneo> getModificatoriTemporanei() {
         return Collections.unmodifiableList(modificatoriTemporanei);
     }

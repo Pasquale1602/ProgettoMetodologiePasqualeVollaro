@@ -1,7 +1,7 @@
 package it.unicam.cs.mpgc.rpg129696.modelli.modificatori;
 
 import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.PersonaggioBase;
-import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.Statistica;
+import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.Statistiche;
 
 /**
  * Definisce il contratto per ogni modificatore che può essere applicato
@@ -11,9 +11,9 @@ public interface Modificatore {
 
     /**
      * Applica l'effetto di questo modificatore all'Oggetto Statistica
-     * @param statistica le statistiche da modificare
+     * @param statistiche le statistiche da modificare
      */
-    void applica (Statistica statistica);
+    void applica (Statistiche statistiche);
 
     /**
      * Applica l'effetto direttamente sul personaggio.

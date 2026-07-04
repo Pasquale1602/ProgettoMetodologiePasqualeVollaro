@@ -8,15 +8,15 @@ public class Nemico extends PersonaggioBase {
     private final ComportamentoNemico comportamento;
 
     protected Nemico() {
-        super("Sconosciuto", new Statistica(1,1,1));
+        super("Sconosciuto", new Statistiche(1,1,1));
         this.ricompensaEsperienza = 1;
         this.comportamento = null;
     }
 
 
-    public Nemico (String nome, Statistica statisticaBase, int ricompensaEsperienza,
+    public Nemico (String nome, Statistiche statisticheBase, int ricompensaEsperienza,
                    ComportamentoNemico comportamentoNemico) {
-        super (nome, statisticaBase);
+        super (nome, statisticheBase);
         this.ricompensaEsperienza = ricompensaEsperienza;
         this.comportamento = comportamentoNemico;
     }

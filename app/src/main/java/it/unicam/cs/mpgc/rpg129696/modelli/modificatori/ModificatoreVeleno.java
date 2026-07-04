@@ -1,7 +1,7 @@
 package it.unicam.cs.mpgc.rpg129696.modelli.modificatori;
 
 import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.PersonaggioBase;
-import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.Statistica;
+import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.Statistiche;
 
 public class ModificatoreVeleno implements Modificatore {
 
@@ -14,8 +14,8 @@ public class ModificatoreVeleno implements Modificatore {
 
 
     @Override
-    public void applica(Statistica statistica) {
-
+    public void applica(Statistiche statistiche) {
+        //il veleno non modifica le statistiche, agisce direttamente sugli hp
     }
 
     @Override

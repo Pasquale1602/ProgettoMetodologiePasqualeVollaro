@@ -1,0 +1,46 @@
+[
+  {
+    "id": 1,
+    "nome": "Macellaio",
+    "descrizione": "Tank offensivo. HP alti, attacco medio, difesa media.",
+    "statistiche": {
+      "attacco": 20,
+      "difesa": 8,
+      "hpMassimi": 120
+    },
+    "tipoAbilita": "FURIA"
+  },
+  {
+    "id": 2,
+    "nome": "Crociato dell'Apocalisse",
+    "descrizione": "Bilanciato difensivo. Alta difesa, attacco medio.",
+    "statistiche": {
+      "attacco": 15,
+      "difesa": 22,
+      "hpMassimi": 90
+    },
+    "tipoAbilita": "CHIAMATA_ALLE_ARMI"
+  },
+  {
+    "id": 3,
+    "nome": "Contaminatore",
+    "descrizione": "Damage over time. Attacco speciale alto, poca difesa.",
+    "statistiche": {
+      "attacco": 18,
+      "difesa": 6,
+      "hpMassimi": 70
+    },
+    "tipoAbilita": "VAPORI_SOFFOCANTI"
+  },
+  {
+    "id": 4,
+    "nome": "Cercatore di Cadaveri",
+    "descrizione": "Critico e assassino. Danno altissimo su singolo bersaglio.",
+    "statistiche": {
+      "attacco": 24,
+      "difesa": 5,
+      "hpMassimi": 65
+    },
+    "tipoAbilita": "COLPO_ALLE_SPALLE"
+  }
+]
