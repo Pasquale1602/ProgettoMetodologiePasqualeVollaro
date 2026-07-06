@@ -13,15 +13,16 @@ public interface Modificatore {
      * Applica l'effetto di questo modificatore all'Oggetto Statistica
      * @param statistiche le statistiche da modificare
      */
-    void applica (Statistiche statistiche);
+    default void applica (Statistiche statistiche) {
+    }
 
     /**
-     * Applica l'effetto direttamente sul personaggio.
-     * Di default delega ad applica(Statistiche) sulle statistiche attuali.
-     * Può essere sovrascritto per effetti che agiscono sugli hp, come il veleno.
+     * Di default non fa nulla.
+     * Solo i modificatori che devono agire direttamente con lo stato del personaggio (come il veleno)
+     * faranno override di questo metodo.
      * @param personaggio il personaggio sul quale applicare l'effetto
      */
     default void applicaSuPersonaggio (PersonaggioBase personaggio) {
-        applica(personaggio.getStatisticheAttuali());
+        //vuoto, non fa nulla
     }
 }

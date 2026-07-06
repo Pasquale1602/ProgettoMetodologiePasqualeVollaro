@@ -10,11 +10,6 @@ public class ModificatoreCura implements Modificatore{
         if (valoreCura <= 0) throw new IllegalArgumentException("la cura deve essere >0");
         this.valoreCura = valoreCura;
     }
-
-    @Override
-    public void applica(Statistiche statistiche) {
-        //la cura non modifica statistiche
-    }
     @Override
     public void applicaSuPersonaggio(PersonaggioBase personaggio) {
         personaggio.cura(valoreCura);

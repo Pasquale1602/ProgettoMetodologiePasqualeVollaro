@@ -12,12 +12,6 @@ public class ModificatoreVeleno implements Modificatore {
         this.dannoVeleno = dannoVeleno;
     }
 
-
-    @Override
-    public void applica(Statistiche statistiche) {
-        //il veleno non modifica le statistiche, agisce direttamente sugli hp
-    }
-
     @Override
     public void applicaSuPersonaggio (PersonaggioBase personaggio) {
         personaggio.prendiDanno(dannoVeleno);

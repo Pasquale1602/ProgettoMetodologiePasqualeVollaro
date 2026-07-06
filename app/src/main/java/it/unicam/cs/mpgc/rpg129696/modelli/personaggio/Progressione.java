@@ -12,7 +12,7 @@ public class Progressione {
     }
     public void aggiungiEsperienza(int esperienza) {
         this.esperienza += esperienza;
-        if (this.esperienza >= esperienzaPerLivelloSuccessivo) {
+        while (this.esperienza >= esperienzaPerLivelloSuccessivo) {
             int esperienzaExtra = this.esperienza - esperienzaPerLivelloSuccessivo;
             this.esperienza = esperienzaExtra;
             this.saliLivello();

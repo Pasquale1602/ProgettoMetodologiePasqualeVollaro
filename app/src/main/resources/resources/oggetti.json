@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "nome": "Pozione di Cura",
+    "descrizione": "Ripristina 30 HP al personaggio.",
+    "tipo": "POZIONE",
+    "valoreCura": 30
+  },
+  {
+    "id": 2,
+    "nome": "Pozione di Cura Superiore",
+    "descrizione": "Ripristina 60 HP al personaggio.",
+    "tipo": "POZIONE",
+    "valoreCura": 60
+  },
+  {
+    "id": 3,
+    "nome": "Antidoto",
+    "descrizione": "Rimuove tutti gli effetti veleno attivi.",
+    "tipo": "ANTIDOTO"
+  },
+  {
+    "id": 4,
+    "nome": "Pozione di Furia",
+    "descrizione": "Aumenta l'attacco di 10 per 3 turni.",
+    "tipo": "POZIONE_FURIA",
+    "valoreAttacco": 10,
+    "turni": 3
+  }
+]

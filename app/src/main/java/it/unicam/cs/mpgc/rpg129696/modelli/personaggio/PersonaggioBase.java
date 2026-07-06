@@ -2,6 +2,7 @@ package it.unicam.cs.mpgc.rpg129696.modelli.personaggio;
 
 import it.unicam.cs.mpgc.rpg129696.modelli.modificatori.Modificatore;
 import it.unicam.cs.mpgc.rpg129696.modelli.modificatori.ModificatoreTemporaneo;
+import it.unicam.cs.mpgc.rpg129696.modelli.modificatori.ModificatoreVeleno;
 import it.unicam.cs.mpgc.rpg129696.modelli.modificatori.SistemaModificatori;
 
 import java.util.ArrayList;
@@ -39,8 +40,11 @@ public abstract class PersonaggioBase implements Danneggiabile {
 
 
     public void attacca (PersonaggioBase bersaglio) {
-        int danno = this.getStatisticheAttuali().getAttacco();
-        bersaglio.prendiDanno(danno);
+        int attaccoAttuale = this.getStatisticheAttuali().getAttacco();
+        int difesaBersaglio = bersaglio.getStatisticheAttuali().getDifesa();
+        int dannoFinale = Math.max(1, attaccoAttuale - difesaBersaglio);
+
+        bersaglio.prendiDanno(dannoFinale);
     }
     public void cura (int quantita) {
         if (quantita <= 0) throw new IllegalArgumentException
@@ -52,10 +56,16 @@ public abstract class PersonaggioBase implements Danneggiabile {
 
     @Override
     public void prendiDanno(int danno) {
+        if (danno <= 0) return;
         hpAttuali -= danno;
         if (hpAttuali < 0) {
             hpAttuali = 0;
         }
+    }
+    //rimuove tutti gli effetti di veleno dal giocatore
+    public void rimuoviVeleno() {
+        modificatoriTemporanei.removeIf(mt -> mt.getModificatore()
+                instanceof ModificatoreVeleno);
     }
 
 

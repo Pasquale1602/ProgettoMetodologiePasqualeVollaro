@@ -9,6 +9,7 @@ public class NemicoDTO {
     public int attaccoBase;
     public int difesaBase;
     public String tipoComportamento;
-    public int xp;
-    public boolean isBoss;
+    public int esperienza;
+    public int valoreEffettoComportamento;
+    public int durataEffettoComportamento;
 }
