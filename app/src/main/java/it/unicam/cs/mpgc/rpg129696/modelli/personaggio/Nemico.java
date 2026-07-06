@@ -1,20 +1,23 @@
 package it.unicam.cs.mpgc.rpg129696.modelli.personaggio;
 
 import it.unicam.cs.mpgc.rpg129696.controlli.ComportamentoNemico;
+import it.unicam.cs.mpgc.rpg129696.modelli.enumerati.TipoComportamento;
 
 public class Nemico extends PersonaggioBase {
 
     private final int ricompensaEsperienza;
     private final ComportamentoNemico comportamento;
+    private final TipoComportamento tipoComportamento;
 
-    public Nemico (String nome, Statistiche statisticheBase, int ricompensaEsperienza,
-                   ComportamentoNemico comportamentoNemico) {
-        super (nome, statisticheBase);
+    public Nemico(String nome, Statistiche statisticheBase, int ricompensaEsperienza,
+                  ComportamentoNemico comportamentoNemico, TipoComportamento tipoComportamento) {
+        super(nome, statisticheBase);
         this.ricompensaEsperienza = ricompensaEsperienza;
         this.comportamento = comportamentoNemico;
+        this.tipoComportamento = tipoComportamento;
     }
 
-    public void eseguiTurno(PersonaggioBase bersaglio) {
+    public void eseguiAzioneDiTurno(PersonaggioBase bersaglio) {
         comportamento.eseguiTurno(this, bersaglio);
     }
 
@@ -24,5 +27,9 @@ public class Nemico extends PersonaggioBase {
 
     public  ComportamentoNemico getComportamentoNemico() {
         return comportamento;
+    }
+
+    public TipoComportamento getTipoComportamento() {
+        return tipoComportamento;
     }
 }

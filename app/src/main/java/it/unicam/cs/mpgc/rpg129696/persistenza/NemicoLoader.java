@@ -61,9 +61,17 @@ public class NemicoLoader {
      */
     private Nemico converti(NemicoDTO dto) {
         Statistiche statistiche = new Statistiche(dto.attaccoBase, dto.difesaBase, dto.hpBase);
-        ComportamentoNemico comportamento = creaComportamento(dto.tipoComportamento, dto.valoreEffettoComportamento,
-                dto.durataEffettoComportamento);
-        return new Nemico(dto.nome, statistiche, dto.esperienza, comportamento);
+
+        TipoComportamento tipoComportamento =
+                TipoComportamento.valueOf(dto.tipoComportamento.toUpperCase());
+
+        ComportamentoNemico comportamento = creaComportamento(
+                tipoComportamento,
+                dto.valoreEffettoComportamento,
+                dto.durataEffettoComportamento
+        );
+
+        return new Nemico(dto.nome, statistiche, dto.esperienza, comportamento, tipoComportamento);
     }
 
     /**
@@ -73,8 +81,8 @@ public class NemicoLoader {
      * @return il comportamento corretto
      * @throws IllegalArgumentException se il tipo non è riconosciuto
      */
-    private ComportamentoNemico creaComportamento(String tipo, int valore, int durata) {
-        return switch (TipoComportamento.valueOf(tipo.toUpperCase())) {
+    private ComportamentoNemico creaComportamento(TipoComportamento tipo, int valore, int durata) {
+        return switch (tipo) {
             case AGGRESSIVO -> new ComportamentoAggressivo();
             case DOT        -> new ComportamentoDoT(valore, durata);
             case DIFENSIVO  -> new ComportamentoDifensivo(valore,durata);
@@ -90,7 +98,7 @@ public class NemicoLoader {
     public List<Nemico> caricaNemici() {
         return carica("/resources/nemici.json")
                 .stream()
-                .filter(n -> !(n.getComportamentoNemico() instanceof ComportamentoBoss))
+                .filter(n -> n.getTipoComportamento() != TipoComportamento.BOSS)
                 .toList();
     }
 
@@ -102,7 +110,7 @@ public class NemicoLoader {
     public List<Nemico> caricaBoss() {
         return carica("/resources/nemici.json")
                 .stream()
-                .filter(n -> n.getComportamentoNemico() instanceof ComportamentoBoss)
+                .filter(n -> n.getTipoComportamento() == TipoComportamento.BOSS)
                 .toList();
     }
 }

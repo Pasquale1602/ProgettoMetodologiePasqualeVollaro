@@ -1,5 +1,7 @@
 package it.unicam.cs.mpgc.rpg129696.modelli.modificatori;
 
+import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.Statistiche;
+
 /**
  * Aggiunge una durata temporanea a qualsiasi {@link Modificatore}.
  * A ogni turno deve essere chiamato {@link #tick()} per decrementare il contatore.
@@ -24,6 +26,16 @@ public class ModificatoreTemporaneo {
         this.modificatore = modificatore;
         this.turniRimanenti = turniRimanenti;
     }
+
+    /**
+     * Applica l'effetto sulle statistiche passate e restituisce quelle nuove
+     * @param statistiche le statistiche da applicare
+     * @return le nuove statistiche
+     */
+    public Statistiche applica (Statistiche statistiche){
+        return modificatore.applica(statistiche);
+    }
+
     public Modificatore getModificatore() {
         return modificatore;
     }

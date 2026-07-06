@@ -18,8 +18,18 @@ public class Giocatore {
         this.progressione = progressione;
     }
 
-    public void aggiungiEsperienza (int esperienza) {
-        progressione.aggiungiEsperienza(esperienza);
+    public int aggiungiEsperienza(int esperienza) {
+        if (progressione == null || personaggio == null) {
+            throw new NullPointerException("Progressione o personaggio non possono essere null");
+        }
+
+        int livelliGuadagnati = progressione.aggiungiEsperienza(esperienza);
+
+        if (livelliGuadagnati > 0) {
+            personaggio.riceviBonusLevelUp(livelliGuadagnati);
+        }
+
+        return livelliGuadagnati;
     }
 
     public String getNomeUtente() { return nomeUtente; }

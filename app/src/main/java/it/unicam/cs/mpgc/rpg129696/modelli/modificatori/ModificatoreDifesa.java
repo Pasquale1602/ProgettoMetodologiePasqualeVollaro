@@ -9,7 +9,11 @@ public class ModificatoreDifesa implements Modificatore {
     public ModificatoreDifesa(int valore) {
         this.valore = valore;
     }
-    public void applica (Statistiche statistiche) {
-        statistiche.setDifesa(statistiche.getDifesa() + valore);
+
+    @Override
+    public Statistiche applica (Statistiche statistiche) {
+
+        int nuovaDifesa = statistiche.getDifesa() + valore;
+        return statistiche.conDifesa(nuovaDifesa);
     }
 }

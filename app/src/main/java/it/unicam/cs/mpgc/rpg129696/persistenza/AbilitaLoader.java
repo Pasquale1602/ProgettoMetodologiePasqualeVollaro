@@ -3,7 +3,7 @@ package it.unicam.cs.mpgc.rpg129696.persistenza;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import it.unicam.cs.mpgc.rpg129696.modelli.abilita.Abilita;
-import it.unicam.cs.mpgc.rpg129696.modelli.abilita.AbilitaFactory;
+import it.unicam.cs.mpgc.rpg129696.modelli.abilita.CreatoreAbilita;
 import it.unicam.cs.mpgc.rpg129696.modelli.enumerati.TipoAbilita;
 import it.unicam.cs.mpgc.rpg129696.persistenza.dto.AbilitaDTO;
 
@@ -16,7 +16,7 @@ import java.util.Map;
 
 /**
  * Carica le abilità dal file JSON e le converte in istanze di {@link Abilita}
- * tramite {@link AbilitaFactory}.
+ * tramite {@link CreatoreAbilita}.
  * Restituisce una mappa indicizzata per {@link TipoAbilita} per un accesso rapido.
  */
 public class AbilitaLoader {
@@ -44,7 +44,7 @@ public class AbilitaLoader {
             Map<TipoAbilita, Abilita> abilita = new HashMap<>();
             for (AbilitaDTO dto : dtos) {
                 TipoAbilita tipo = TipoAbilita.valueOf(dto.tipo);
-                abilita.put(tipo, AbilitaFactory.crea(dto));
+                abilita.put(tipo, CreatoreAbilita.crea(dto));
             }
             return abilita;
 

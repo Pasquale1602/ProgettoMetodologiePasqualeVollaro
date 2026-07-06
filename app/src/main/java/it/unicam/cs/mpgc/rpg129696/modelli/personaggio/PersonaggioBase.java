@@ -12,7 +12,7 @@ import java.util.List;
 public abstract class PersonaggioBase implements Danneggiabile {
 
     private final String nome;
-    private final Statistiche statisticheBase;
+    protected Statistiche statisticheBase;
     private int hpAttuali;
     private final List<ModificatoreTemporaneo> modificatoriTemporanei = new ArrayList<>();
 
@@ -24,13 +24,13 @@ public abstract class PersonaggioBase implements Danneggiabile {
         this.hpAttuali = statisticheBase.getHpMassimi();
     }
 
-
     public Statistiche getStatisticheAttuali() {
-        List<Modificatore> tutti = new ArrayList<>();
-        for (ModificatoreTemporaneo mt : modificatoriTemporanei) {
-            tutti.add(mt.getModificatore());
+        Statistiche calcolate = this.statisticheBase;
+
+        for (ModificatoreTemporaneo mod : modificatoriTemporanei) {
+            calcolate = mod.applica(calcolate);
         }
-        return SistemaModificatori.calcola(statisticheBase, tutti);
+        return calcolate;
     }
 
 
@@ -70,8 +70,8 @@ public abstract class PersonaggioBase implements Danneggiabile {
 
 
     @Override
-    public boolean isMorto() {
-        return hpAttuali == 0;
+    public boolean isVivo() {
+        return hpAttuali > 0;
     }
 
 
@@ -118,6 +118,11 @@ public abstract class PersonaggioBase implements Danneggiabile {
      */
     public void rimuoviModificatori() {
         modificatoriTemporanei.clear();
+    }
+    protected void aggiornaStatisticheBase (Statistiche nuoveStatistiche) {
+        if (nuoveStatistiche != null) {
+            this.statisticheBase = nuoveStatistiche;
+        }
     }
 
     /**

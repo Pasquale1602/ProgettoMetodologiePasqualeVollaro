@@ -8,7 +8,9 @@ public class ModificatoreAttacco implements Modificatore {
     public ModificatoreAttacco(int valore) {
         this.valore = valore;
     }
-    public void applica(Statistiche statistiche) {
-        statistiche.setAttacco(statistiche.getAttacco() + valore);
+
+    @Override
+    public Statistiche applica(Statistiche statistiche) {
+        return statistiche.conAttacco(statistiche.getAttacco() + valore);
     }
 }

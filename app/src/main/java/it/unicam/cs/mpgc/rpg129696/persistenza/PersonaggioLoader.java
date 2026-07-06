@@ -22,7 +22,11 @@ import java.util.Map;
 public class PersonaggioLoader {
 
     private final Gson gson = new Gson();
-    private final AbilitaLoader abilitaLoader = new AbilitaLoader();
+    private final AbilitaLoader abilitaLoader;
+
+    public PersonaggioLoader(AbilitaLoader abilitaLoader) {
+        this.abilitaLoader = abilitaLoader;
+    }
 
     /**
      * Carica la lista di personaggi dal file JSON specificato.

@@ -4,16 +4,20 @@ import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.PersonaggioBase;
 import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.Statistiche;
 
 /**
- * Definisce il contratto per ogni modificatore che può essere applicato
- * Ogni implementazione decide autonomamente quali statistiche alterare e come
+ * Definisce il contratto per ogni modificatore che può essere applicato.
+ * Ogni implementazione decide autonomamente quali statistiche alterare e come.
  */
 public interface Modificatore {
 
     /**
-     * Applica l'effetto di questo modificatore all'Oggetto Statistica
-     * @param statistiche le statistiche da modificare
+     * Accetta le statistiche attuali e restituisce una nuova istanza di Statistiche
+     * con l'effetto applicato
+     *
+     * @param statistiche le statistiche di partenza
+     * @return le nuove statistiche modificate, o le stesse se non alterate di default
      */
-    default void applica (Statistiche statistiche) {
+    default Statistiche applica(Statistiche statistiche) {
+        return statistiche; // Di default restituisce l'oggetto intatto
     }
 
     /**
@@ -22,7 +26,7 @@ public interface Modificatore {
      * faranno override di questo metodo.
      * @param personaggio il personaggio sul quale applicare l'effetto
      */
-    default void applicaSuPersonaggio (PersonaggioBase personaggio) {
+    default void applicaSuPersonaggio(PersonaggioBase personaggio) {
         //vuoto, non fa nulla
     }
 }

@@ -3,7 +3,7 @@ package it.unicam.cs.mpgc.rpg129696.modelli.enumerati;
 /**
  * Definisce i tipi di oggetti disponibili nell'inventario.
  * Ogni valore corrisponde a un effetto specifico applicabile
- * al personaggio tramite {@code OggettoFactory}.
+ * al personaggio tramite {@code CreatoreOggetto}.
  */
 public enum TipoOggetto {
 

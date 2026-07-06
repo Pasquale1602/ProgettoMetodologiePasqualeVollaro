@@ -10,13 +10,23 @@ public class Progressione {
         this.esperienza = esperienza;
         this.esperienzaPerLivelloSuccessivo = esperienzaPerLivelloSuccessivo;
     }
-    public void aggiungiEsperienza(int esperienza) {
+
+    /**
+     * Aggiunge esperienza e restituisce il numero di livelli guadagnati in questo incremento
+     * @param esperienza l'esperienza da aggiungere
+     * @return il numero di livelli guadagnati
+     */
+    public int aggiungiEsperienza(int esperienza) {
+
         this.esperienza += esperienza;
+        int livelliGuadagnati = 0;
+
         while (this.esperienza >= esperienzaPerLivelloSuccessivo) {
-            int esperienzaExtra = this.esperienza - esperienzaPerLivelloSuccessivo;
-            this.esperienza = esperienzaExtra;
+            this.esperienza -= esperienzaPerLivelloSuccessivo;
             this.saliLivello();
+            livelliGuadagnati++;
         }
+        return livelliGuadagnati;
     }
     public int getLivello() { return this.livello; }
     public int getEsperienza() { return this.esperienza; }
