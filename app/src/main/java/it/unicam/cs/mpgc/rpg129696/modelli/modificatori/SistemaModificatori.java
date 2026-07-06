@@ -4,31 +4,21 @@ import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.Statistiche;
 
 import java.util.List;
 
-
 /**
- * Utility class responsible for calculating the final stats of a character
- * by applying a list of modifiers to a copy of the base stats.
- * The base stats are never modified.
+ * Calcola le statistiche finali applicando i modificatori temporanei attivi.
  */
 public class SistemaModificatori {
 
-    /** Prevents instantiation of this utility class. */
-    private SistemaModificatori() {}
-    /**
-     * Calculates the final stats by applying all modifiers sequentially
-     * to a copy of the base stats.
-     *
-     * @param baseStats the character's base stats, never modified
-     * @param modifiers the list of active modifiers to apply
-     * @return a new Stats instance with all modifiers applied
-     */
-    public static Statistiche calcola (Statistiche baseStats, List<Modificatore> modifiers) {
+    private SistemaModificatori() {
+    }
 
-        Statistiche finalStats = new Statistiche(baseStats);
+    public static Statistiche calcola(Statistiche statisticheBase, List<ModificatoreTemporaneo> modificatori) {
+        Statistiche statisticheFinali = new Statistiche(statisticheBase);
 
-        for (Modificatore modifier : modifiers) {
-            modifier.applica(finalStats);
+        for (ModificatoreTemporaneo modificatore : modificatori) {
+            statisticheFinali = modificatore.applica(statisticheFinali);
         }
-        return finalStats;
+
+        return statisticheFinali;
     }
 }

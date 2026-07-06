@@ -12,7 +12,7 @@ import java.util.List;
 public abstract class PersonaggioBase implements Danneggiabile {
 
     private final String nome;
-    protected Statistiche statisticheBase;
+    private Statistiche statisticheBase;
     private int hpAttuali;
     private final List<ModificatoreTemporaneo> modificatoriTemporanei = new ArrayList<>();
 
@@ -25,12 +25,7 @@ public abstract class PersonaggioBase implements Danneggiabile {
     }
 
     public Statistiche getStatisticheAttuali() {
-        Statistiche calcolate = this.statisticheBase;
-
-        for (ModificatoreTemporaneo mod : modificatoriTemporanei) {
-            calcolate = mod.applica(calcolate);
-        }
-        return calcolate;
+        return SistemaModificatori.calcola(statisticheBase, modificatoriTemporanei);
     }
 
 
@@ -110,6 +105,22 @@ public abstract class PersonaggioBase implements Danneggiabile {
         int maxHp = getStatisticheAttuali().getHpMassimi();
         if (this.hpAttuali > maxHp) {
             this.hpAttuali = maxHp;
+        }
+    }
+    /**
+     * Ripristina gli HP attuali del personaggio, rispettando i limiti validi.
+     *
+     * <p>Il valore viene limitato tra 0 e gli HP massimi attuali.</p>
+     *
+     * @param hp gli HP da ripristinare
+     */
+    public void ripristinaHp(int hp) {
+        int hpMassimi = getStatisticheAttuali().getHpMassimi();
+
+        if (hp < 0) {
+            this.hpAttuali = 0;
+        } else {
+            this.hpAttuali = Math.min(hp, hpMassimi);
         }
     }
 

@@ -1,10 +1,18 @@
 package it.unicam.cs.mpgc.rpg129696.view;
 
-import it.unicam.cs.mpgc.rpg129696.modelli.oggetti.Contenuto;
-import java.util.List;
-
+/**
+ * Definisce le operazioni minime che una interfaccia utente deve offrire
+ * al resto del gioco.
+ *
+ * In questo modo i controlli non dipendono da una specifica interfaccia
+ * grafica o testuale.
+ */
 public interface InterfacciaUtente {
+
+    /**
+     * Mostra un messaggio prodotto dal gioco.
+     *
+     * @param messaggio il messaggio da mostrare
+     */
     void mostraMessaggio(String messaggio);
-    int richiediSceltaAzionePrincipale(); // 1: Attacca, 2: Abilità, 3: Inventario
-    int richiediSceltaOggetto(List<Contenuto> inventario);
 }

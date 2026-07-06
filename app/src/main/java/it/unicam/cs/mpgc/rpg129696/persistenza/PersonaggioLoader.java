@@ -65,13 +65,24 @@ public class PersonaggioLoader {
      * @param dto il DTO da convertire
      * @param abilita la mappa delle abilità disponibili
      * @return il personaggio pronto per il gioco
+     * @throws IllegalArgumentException se il DTO non è valido o se l'abilità richiesta non esiste
      */
     private PersonaggioGiocabile converti(PersonaggioDTO dto, Map<TipoAbilita, Abilita> abilita) {
-        Statistiche statistiche = new Statistiche(
-                dto.statistiche
-        );
-        TipoAbilita tipoAbilita = TipoAbilita.valueOf(dto.tipoAbilita);
+        if (dto == null) {
+            throw new IllegalArgumentException("Il DTO del personaggio non puo essere null");
+        }
+        if (dto.tipoAbilita == null || dto.tipoAbilita.isBlank()) {
+            throw new IllegalArgumentException("Il tipo abilita del personaggio non puo essere vuoto");
+        }
+
+        Statistiche statistiche = new Statistiche(dto.statistiche);
+        TipoAbilita tipoAbilita = TipoAbilita.valueOf(dto.tipoAbilita.toUpperCase());
         Abilita abilitaPersonaggio = abilita.get(tipoAbilita);
+
+        if (abilitaPersonaggio == null) {
+            throw new IllegalArgumentException("Abilita non trovata per il tipo: " + tipoAbilita);
+        }
+
         return new PersonaggioGiocabile(dto.nome, statistiche, abilitaPersonaggio);
     }
 

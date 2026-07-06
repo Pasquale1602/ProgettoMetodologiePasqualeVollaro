@@ -11,12 +11,25 @@ public class PersonaggioGiocabile extends PersonaggioBase{
 
     public PersonaggioGiocabile(String nome, Statistiche statisticheBase, Abilita abilita) {
         super(nome, statisticheBase);
+
+        if (abilita == null) {
+            throw new IllegalArgumentException("L'abilita non puo essere null");
+        }
+
         this.abilita = abilita;
         this.inventario = new Inventario();
     }
-
+    /**
+     * Usa l'abilita del personaggio sul bersaglio indicato.
+     *
+     * @param bersaglio il personaggio su cui applicare l'abilita
+     * @throws IllegalArgumentException se il bersaglio è null
+     */
     public void usaAbilita(PersonaggioBase bersaglio) {
-        if (abilita == null) throw new NullPointerException("le abilita non possono essere null");
+        if (bersaglio == null) {
+            throw new IllegalArgumentException("Il bersaglio non puo essere null");
+        }
+
         abilita.eseguiAbilita(this, bersaglio);
     }
 
@@ -28,7 +41,7 @@ public class PersonaggioGiocabile extends PersonaggioBase{
         int bonusHp = 10 * quantiLivelli;
 
         Statistiche bonus = new Statistiche (bonusAttacco, bonusDifesa, bonusHp);
-        Statistiche nuoveStatistiche = this.statisticheBase.sommaStatistiche(bonus);
+        Statistiche nuoveStatistiche = getStatisticheBase().sommaStatistiche(bonus);
 
         this.aggiornaStatisticheBase(nuoveStatistiche);
     }

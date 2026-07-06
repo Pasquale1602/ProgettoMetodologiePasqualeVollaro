@@ -39,6 +39,11 @@ public class ConfigurazioneEffettiOggetto {
         );
 
         CreatoreOggetto.registraEffetto(
+                TipoOggetto.ANTIDOTO,
+                (personaggio, oggetto) -> personaggio.rimuoviVeleno()
+        );
+
+        CreatoreOggetto.registraEffetto(
                 TipoOggetto.POZIONE_FURIA,
                 (personaggio, oggetto) -> personaggio.aggiungiModificatore(
                         new ModificatoreTemporaneo(

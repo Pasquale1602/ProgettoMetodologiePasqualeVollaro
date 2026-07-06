@@ -43,7 +43,7 @@ public class AbilitaLoader {
 
             Map<TipoAbilita, Abilita> abilita = new HashMap<>();
             for (AbilitaDTO dto : dtos) {
-                TipoAbilita tipo = TipoAbilita.valueOf(dto.tipo);
+                TipoAbilita tipo = TipoAbilita.valueOf(dto.tipo.toUpperCase());
                 abilita.put(tipo, CreatoreAbilita.crea(dto));
             }
             return abilita;

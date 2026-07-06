@@ -4,47 +4,70 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Rappresenta l'inventario di un personaggio
+ *
+ * L'inventario contiene una lista di slot, ognuno rappresentato da un
+ * {@link Contenuto}, che associa un oggetto alla relativa quantita
+ */
 public class Inventario {
     private final List <Contenuto> contenuto;
-    private final int capacitaMassima = 104;
+    private final int CAPACITA_MASSIMA = 12;
 
     public Inventario () {
         this.contenuto = new ArrayList<>();
     }
 
+    /**
+     * Aggiunge una certa quantita di oggetti all'inventario
+     * Se l'oggetto è già presente, aumenta la quantità nello slot esistente,
+     * Se invece non è presente, crea un nuovo slot, sempre se la capacità massima non è
+     * stata raggiunta
+     * @param oggetto l'oggetto da aggiungere
+     * @param quantita la quantità dell'oggetto da aggiungere
+     * @return true se l'aggiunta è andata a buon fine, false altrimenti
+     */
     public boolean aggiungiOggetto(Oggetto oggetto, int quantita) {
-        if (oggetto == null) throw new NullPointerException("L'oggetto non può essere nullo");
-        if (quantita <= 0) return false;
+        if (oggetto == null) {
+            throw new IllegalArgumentException("L'oggetto non puo essere null");
+        }
+        if (quantita <= 0) {
+            return false;
+        }
 
         return contenuto.stream()
                 .filter(slot -> slot.getOggetto().equals(oggetto))
                 .findFirst()
                 .map(slot -> {
-
                     slot.setQuantita(slot.getQuantita() + quantita);
                     return true;
                 })
                 .orElseGet(() -> {
+                    if (contenuto.size() >= CAPACITA_MASSIMA) {
+                        return false;
+                    }
 
-                    if (contenuto.size() >= capacitaMassima) return false;
                     contenuto.add(new Contenuto(oggetto, quantita));
                     return true;
                 });
     }
 
     /**
-     * Rimuove un oggetto dall'inventario
+     * Rimuove una singola unità dell'oggetto indicato dall'inventario
+     * Se la quantita dello slot è maggiore di uno, viene decrementata.
+     * Se la quantita è pari a uno, lo slot viene rimosso dall'inventario.
      * @param oggetto l'oggetto da rimuovere
      * @return true se l'oggetto si trova nell'inventario, false altrimenti
      */
     public boolean rimuoviOggetto(Oggetto oggetto) {
-        if (oggetto == null || contenuto.isEmpty()) return false;
+        if (oggetto == null || contenuto.isEmpty()) {
+            return false;
+        }
 
         return contenuto.stream()
                 .filter(slot -> slot.getOggetto().equals(oggetto))
                 .findFirst()
                 .map(slot -> {
-
                     if (slot.getQuantita() > 1) {
                         slot.setQuantita(slot.getQuantita() - 1);
                     } else {
@@ -54,6 +77,11 @@ public class Inventario {
                 })
                 .orElse(false);
     }
+
+    /**Restituisce il contenuto dell'inventario
+     *
+     * @return lista non modificabile degli slot presenti nell'inventario
+     */
 
     public List <Contenuto> getContenuto() {
         return Collections.unmodifiableList(contenuto);

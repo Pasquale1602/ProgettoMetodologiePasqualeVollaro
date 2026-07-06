@@ -20,16 +20,31 @@ public class Oggetto {
         this.descrizione = "";
         this.tipo = null;
     }
-    public void usa (PersonaggioBase personaggio) {
-        CreatoreOggetto.creaEffetto(this.tipo).applica(personaggio,this);
+
+    /**
+     * Applica l'effetto dell'oggetto al personaggio indicato
+     * @param personaggio il personaggio su cui applicare l'effetto
+     * @throws IllegalArgumentException se il personaggio è null
+     * @throws IllegalStateException se il tipo dell'oggetto è null
+     */
+    public void usa(PersonaggioBase personaggio) {
+        if (personaggio == null) {
+            throw new IllegalArgumentException("Il personaggio non puo essere null");
         }
-    public int getId() {return id;}
-    public String getNome() {return nome;}
-    public String getDescrizione() {return descrizione;}
-    public TipoOggetto getTipo() {return tipo;}
-    public int getValoreCura() {return valoreCura;}
-    public int getValoreAttacco() {return valoreAttacco;}
-    public int getTurni() {return turni;}
+        if (tipo == null) {
+            throw new IllegalStateException("Il tipo dell'oggetto non puo essere null");
+        }
+
+        CreatoreOggetto.creaEffetto(tipo).applica(personaggio, this);
+    }
+
+    public int getId() { return id; }
+    public String getNome() { return nome; }
+    public String getDescrizione() { return descrizione; }
+    public TipoOggetto getTipo() { return tipo; }
+    public int getValoreCura() { return valoreCura; }
+    public int getValoreAttacco() { return valoreAttacco; }
+    public int getTurni() { return turni; }
 
     @Override
     public boolean equals(Object o) {

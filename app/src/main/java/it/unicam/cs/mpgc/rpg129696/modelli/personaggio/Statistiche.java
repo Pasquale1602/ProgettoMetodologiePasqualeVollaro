@@ -1,8 +1,10 @@
 package it.unicam.cs.mpgc.rpg129696.modelli.personaggio;
 
 /**
- * Rappresenta le statistiche di un personaggio
- * Progettata come
+ * Rappresenta le statistiche di un personaggio.
+ *
+ * La classe è immutabile, ogni modifica restituisce una nuova istanza
+ * di {@code Statistiche}
  */
 public class Statistiche {
 
@@ -15,12 +17,17 @@ public class Statistiche {
     }
 
     public Statistiche(int attacco, int difesa, int hpMassimi) {
-        this.attacco = Math.max(0,attacco);
-        this.difesa = Math.max(0,difesa);
-        this.hpMassimi = Math.max(0,hpMassimi);
+        this.attacco = Math.max(0, attacco);
+        this.difesa = Math.max(0, difesa);
+        this.hpMassimi = Math.max(1, hpMassimi);
     }
 
     public Statistiche(Statistiche other) {
+        if (other == null) {
+            throw new IllegalArgumentException("Le statistiche da copiare " +
+                    "non possono essere null");
+        }
+
         this.attacco = other.attacco;
         this.difesa = other.difesa;
         this.hpMassimi = other.hpMassimi;
