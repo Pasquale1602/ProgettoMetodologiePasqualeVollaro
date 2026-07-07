@@ -174,9 +174,21 @@ public class CombatManager {
 
     private void eseguiTurnoNemico() {
         Nemico nemico = getNemicoCorrente();
+        PersonaggioGiocabile eroe = getEroe();
+
+        int hpEroePrima = eroe.getHpAttuali();
 
         ui.mostraMessaggio("E' il turno di " + nemico.getNome() + "...");
-        nemico.eseguiAzioneDiTurno(getEroe());
+        nemico.eseguiAzioneDiTurno(eroe);
+
+        int dannoSubito = hpEroePrima - eroe.getHpAttuali();
+
+        if (dannoSubito > 0) {
+            ui.mostraMessaggio(nemico.getNome() + " infligge " + dannoSubito
+                    + " danni a " + eroe.getNome() + "!");
+        } else {
+            ui.mostraMessaggio(nemico.getNome() + " prepara una mossa difensiva o un effetto speciale.");
+        }
     }
 
     private void aggiornaModificatoriFineTurno() {

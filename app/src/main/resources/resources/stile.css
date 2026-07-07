@@ -1,0 +1,73 @@
+.root {
+    -fx-font-family: "Segoe UI", "Arial";
+    -fx-background-color: #1f2328;
+}
+
+.label {
+    -fx-text-fill: #f2f2f2;
+}
+
+.button {
+    -fx-background-color: #3a4656;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+    -fx-padding: 8 14 8 14;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #4d6178;
+}
+
+.button:pressed {
+    -fx-background-color: #2d3744;
+}
+
+.button:disabled {
+    -fx-opacity: 0.45;
+}
+
+.text-area {
+    -fx-control-inner-background: #111418;
+    -fx-background-color: #111418;
+    -fx-text-fill: #e8e8e8;
+    -fx-font-family: "Consolas", "Courier New";
+    -fx-font-size: 14px;
+    -fx-border-color: #596579;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+}
+
+.text-area .content {
+    -fx-background-color: #111418;
+}
+
+.vbox {
+    -fx-background-color: transparent;
+}
+
+#labelTurno {
+    -fx-text-fill: #f0c36a;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+#labelEroe {
+    -fx-text-fill: #8fd19e;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+#labelNemico {
+    -fx-text-fill: #ef8f8f;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+#pannelloInventario {
+    -fx-background-color: #2a3038;
+    -fx-border-color: #596579;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+}

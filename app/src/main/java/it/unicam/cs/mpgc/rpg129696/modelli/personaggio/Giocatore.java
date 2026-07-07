@@ -6,11 +6,6 @@ public class Giocatore {
     private PersonaggioGiocabile personaggio;
     private Progressione progressione;
 
-    protected Giocatore () {
-        this.nomeUtente = "";
-        this.progressione = null;
-        this.personaggio = null;
-    }
 
     public Giocatore(String nomeUtente, PersonaggioGiocabile personaggio, Progressione progressione) {
         if (nomeUtente == null || nomeUtente.isBlank()) {
@@ -29,10 +24,6 @@ public class Giocatore {
     }
 
     public int aggiungiEsperienza(int esperienza) {
-        if (progressione == null || personaggio == null) {
-            throw new IllegalStateException("Progressione o personaggio non sono stati inizializzati");
-        }
-
         int livelliGuadagnati = progressione.aggiungiEsperienza(esperienza);
 
         if (livelliGuadagnati > 0) {

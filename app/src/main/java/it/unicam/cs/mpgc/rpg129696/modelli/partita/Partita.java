@@ -60,7 +60,6 @@ public class Partita {
      */
     public void registraVittoria() {
         combattimentiVinti++;
-        nemicoCorrente = null;
     }
 
     public LocalDateTime getUltimoSalvataggio() {

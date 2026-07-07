@@ -87,7 +87,9 @@ public class GestoreSchermate {
 
     private void impostaSchermata(Parent root) {
         if (stage.getScene() == null) {
-            stage.setScene(new Scene(root, 900, 620));
+            Scene scene = new Scene(root, 900, 620);
+            scene.getStylesheets().add(getClass().getResource("/resources/stile.css").toExternalForm());
+            stage.setScene(scene);
         } else {
             stage.getScene().setRoot(root);
         }
