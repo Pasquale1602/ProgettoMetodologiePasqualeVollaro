@@ -1,10 +1,10 @@
-package it.unicam.cs.mpgc.rpg129696.controlli;
+package it.unicam.cs.mpgc.rpg129696.modelli.comportamenti;
 
 import it.unicam.cs.mpgc.rpg129696.modelli.modificatori.ModificatoreDifesa;
 import it.unicam.cs.mpgc.rpg129696.modelli.modificatori.ModificatoreTemporaneo;
 import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.PersonaggioBase;
 
-public class ComportamentoDifensivo implements ComportamentoNemico{
+public class ComportamentoDifensivo implements ComportamentoNemico {
     private final int bonusDifesa;
     private final int durata;
     private boolean buffAttivo = false;

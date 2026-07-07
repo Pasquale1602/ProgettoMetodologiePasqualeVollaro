@@ -4,6 +4,7 @@ import it.unicam.cs.mpgc.rpg129696.controlli.ConfigurazioneGioco;
 import it.unicam.cs.mpgc.rpg129696.controlli.GestorePartita;
 import it.unicam.cs.mpgc.rpg129696.modelli.partita.Partita;
 import it.unicam.cs.mpgc.rpg129696.persistenza.GestoreSalvataggi;
+import it.unicam.cs.mpgc.rpg129696.controlli.GestoreIncontri;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -29,11 +30,14 @@ public class GestoreSchermate {
     private final GestorePartita gestorePartita;
     private final GestoreSalvataggi gestoreSalvataggi;
 
+    private final GestoreIncontri gestoreIncontri;
+
     public GestoreSchermate(Stage stage) {
         this.stage = stage;
         this.configurazione = new ConfigurazioneGioco();
         this.gestorePartita = new GestorePartita();
         this.gestoreSalvataggi = new GestoreSalvataggi();
+        this.gestoreIncontri = new GestoreIncontri();
     }
 
     /**
@@ -54,7 +58,7 @@ public class GestoreSchermate {
             Parent root = loader.load();
 
             MenuController controller = loader.getController();
-            controller.inizializza(this, configurazione, gestorePartita, gestoreSalvataggi);
+            controller.inizializza(this, configurazione, gestorePartita, gestoreSalvataggi, gestoreIncontri);
 
             impostaSchermata(root);
         } catch (IOException e) {
@@ -73,7 +77,7 @@ public class GestoreSchermate {
             Parent root = loader.load();
 
             CombattimentoController controller = loader.getController();
-            controller.inizializza(this, partita, configurazione, gestoreSalvataggi);
+            controller.inizializza(this, partita, configurazione, gestoreSalvataggi, gestoreIncontri);
 
             impostaSchermata(root);
         } catch (IOException e) {

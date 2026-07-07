@@ -2,12 +2,11 @@ package it.unicam.cs.mpgc.rpg129696.view;
 
 import it.unicam.cs.mpgc.rpg129696.controlli.ConfigurazioneGioco;
 import it.unicam.cs.mpgc.rpg129696.controlli.GestorePartita;
+import it.unicam.cs.mpgc.rpg129696.controlli.GestoreIncontri;
 import it.unicam.cs.mpgc.rpg129696.modelli.enumerati.SlotSalvataggio;
 import it.unicam.cs.mpgc.rpg129696.modelli.partita.Partita;
-import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.Nemico;
 import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.PersonaggioGiocabile;
 import it.unicam.cs.mpgc.rpg129696.persistenza.GestoreSalvataggi;
-import it.unicam.cs.mpgc.rpg129696.persistenza.NemicoLoader;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -16,7 +15,6 @@ import javafx.scene.control.TextInputDialog;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 /**
  * Controller FXML per la schermata del menu principale.
@@ -26,13 +24,11 @@ import java.util.Random;
  */
 public class MenuController {
 
-    private static final Random RANDOM = new Random();
-
     private GestoreSchermate gestoreSchermate;
     private ConfigurazioneGioco configurazione;
     private GestorePartita gestorePartita;
     private GestoreSalvataggi gestoreSalvataggi;
-    private final NemicoLoader nemicoLoader = new NemicoLoader();
+    private GestoreIncontri gestoreIncontri;
 
     /**
      * Inietta le dipendenze necessarie al controller.
@@ -41,11 +37,13 @@ public class MenuController {
     public void inizializza(GestoreSchermate gestoreSchermate,
                             ConfigurazioneGioco configurazione,
                             GestorePartita gestorePartita,
-                            GestoreSalvataggi gestoreSalvataggi) {
+                            GestoreSalvataggi gestoreSalvataggi,
+                            GestoreIncontri gestoreIncontri) {
         this.gestoreSchermate = gestoreSchermate;
         this.configurazione = configurazione;
         this.gestorePartita = gestorePartita;
         this.gestoreSalvataggi = gestoreSalvataggi;
+        this.gestoreIncontri = gestoreIncontri;
     }
 
     @FXML
@@ -99,9 +97,7 @@ public class MenuController {
     }
 
     private void assegnaNuovoNemico(Partita partita) {
-        List<Nemico> nemici = nemicoLoader.caricaNemici();
-        Nemico scelto = nemici.get(RANDOM.nextInt(nemici.size()));
-        partita.setNemicoCorrente(scelto);
+        gestoreIncontri.assegnaNemicoCasuale(partita, configurazione.getNemici());
     }
 
     private void mostraErrore(String messaggio) {

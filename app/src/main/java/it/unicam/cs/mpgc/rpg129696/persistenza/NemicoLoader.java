@@ -2,11 +2,11 @@ package it.unicam.cs.mpgc.rpg129696.persistenza;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import it.unicam.cs.mpgc.rpg129696.controlli.ComportamentoAggressivo;
-import it.unicam.cs.mpgc.rpg129696.controlli.ComportamentoBoss;
-import it.unicam.cs.mpgc.rpg129696.controlli.ComportamentoDifensivo;
-import it.unicam.cs.mpgc.rpg129696.controlli.ComportamentoDoT;
-import it.unicam.cs.mpgc.rpg129696.controlli.ComportamentoNemico;
+import it.unicam.cs.mpgc.rpg129696.modelli.comportamenti.ComportamentoAggressivo;
+import it.unicam.cs.mpgc.rpg129696.modelli.comportamenti.ComportamentoBoss;
+import it.unicam.cs.mpgc.rpg129696.modelli.comportamenti.ComportamentoDifensivo;
+import it.unicam.cs.mpgc.rpg129696.modelli.comportamenti.ComportamentoDoT;
+import it.unicam.cs.mpgc.rpg129696.modelli.comportamenti.ComportamentoNemico;
 import it.unicam.cs.mpgc.rpg129696.modelli.enumerati.TipoComportamento;
 import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.Nemico;
 import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.Statistiche;

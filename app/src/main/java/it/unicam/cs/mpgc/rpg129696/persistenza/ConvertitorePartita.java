@@ -10,6 +10,7 @@ import it.unicam.cs.mpgc.rpg129696.persistenza.dto.OggettoSalvatoDTO;
 import it.unicam.cs.mpgc.rpg129696.persistenza.dto.PartitaDTO;
 
 import java.util.List;
+import java.time.LocalDateTime;
 
 /**
  * Converte una partita del dominio in un DTO adatto al salvataggio
@@ -126,9 +127,10 @@ public class ConvertitorePartita {
         }
 
         Partita partita = new Partita(giocatore);
+        partita.ripristinaCombattimentiVinti(dto.combattimentiVinti);
 
-        for (int i = 0; i < dto.combattimentiVinti; i++) {
-            partita.registraVittoria();
+        if (dto.ultimoSalvataggio != null && !dto.ultimoSalvataggio.isBlank()) {
+            partita.ripristinaUltimoSalvataggio(LocalDateTime.parse(dto.ultimoSalvataggio));
         }
 
         return partita;

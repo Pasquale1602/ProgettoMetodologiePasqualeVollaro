@@ -7,12 +7,11 @@ import it.unicam.cs.mpgc.rpg129696.controlli.StatoCombattimento;
 import it.unicam.cs.mpgc.rpg129696.modelli.enumerati.SlotSalvataggio;
 import it.unicam.cs.mpgc.rpg129696.modelli.oggetti.Contenuto;
 import it.unicam.cs.mpgc.rpg129696.modelli.partita.Partita;
-import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.Nemico;
 import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.PersonaggioGiocabile;
 import it.unicam.cs.mpgc.rpg129696.persistenza.GestoreSalvataggi;
+import it.unicam.cs.mpgc.rpg129696.controlli.GestoreIncontri;
 
 import java.util.List;
-import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -21,17 +20,17 @@ import java.util.Scanner;
  * Orchestra {@link CombatManager} esattamente come fa {@code CombattimentoController}
  * per la GUI, ma leggendo le scelte dell'utente da console tramite {@link ConsoleUI}
  * invece che da bottoni. Dimostra che il motore di gioco (package {@code controlli})
- * e' indipendente dal tipo di interfaccia utilizzata.
+ * è indipendente dal tipo di interfaccia utilizzata.
  */
 public class GiocoConsole {
 
-    private static final Random RANDOM = new Random();
 
     private final ConsoleUI ui = new ConsoleUI();
     private final Scanner scanner = new Scanner(System.in);
     private final ConfigurazioneGioco configurazione = new ConfigurazioneGioco();
     private final GestorePartita gestorePartita = new GestorePartita();
     private final GestoreSalvataggi gestoreSalvataggi = new GestoreSalvataggi();
+    private final GestoreIncontri gestoreIncontri = new GestoreIncontri();
 
     public void avvia() {
         ui.mostraMessaggio("=== TOXIC RAIN (console) ===");
@@ -105,8 +104,7 @@ public class GiocoConsole {
      */
     private boolean eseguiCombattimento(Partita partita) {
         CombatManager combatManager = new CombatManager(
-                partita.getGiocatore(),
-                partita.getNemicoCorrente(),
+                partita,
                 ui,
                 configurazione.getOggetti());
 
@@ -121,7 +119,6 @@ public class GiocoConsole {
             return false;
         }
 
-        partita.registraVittoria();
         return chiediSeContinuare(partita);
     }
 
@@ -162,8 +159,6 @@ public class GiocoConsole {
     }
 
     private void assegnaNuovoNemico(Partita partita) {
-        List<Nemico> nemici = configurazione.getNemici();
-        Nemico scelto = nemici.get(RANDOM.nextInt(nemici.size()));
-        partita.setNemicoCorrente(scelto);
+        gestoreIncontri.assegnaNemicoCasuale(partita, configurazione.getNemici());
     }
 }

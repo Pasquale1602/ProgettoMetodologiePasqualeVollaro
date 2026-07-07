@@ -6,9 +6,8 @@ import it.unicam.cs.mpgc.rpg129696.controlli.StatoCombattimento;
 import it.unicam.cs.mpgc.rpg129696.modelli.enumerati.SlotSalvataggio;
 import it.unicam.cs.mpgc.rpg129696.modelli.oggetti.Contenuto;
 import it.unicam.cs.mpgc.rpg129696.modelli.partita.Partita;
-import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.Nemico;
 import it.unicam.cs.mpgc.rpg129696.persistenza.GestoreSalvataggi;
-import it.unicam.cs.mpgc.rpg129696.persistenza.NemicoLoader;
+import it.unicam.cs.mpgc.rpg129696.controlli.GestoreIncontri;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -17,7 +16,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 
 import java.util.List;
-import java.util.Random;
 
 /**
  * Controller FXML per la schermata di combattimento.
@@ -27,7 +25,6 @@ import java.util.Random;
  */
 public class CombattimentoController {
 
-    private static final Random RANDOM = new Random();
 
     @FXML private Label labelTurno;
     @FXML private Label labelEroe;
@@ -44,7 +41,7 @@ public class CombattimentoController {
     private Partita partita;
     private ConfigurazioneGioco configurazione;
     private GestoreSalvataggi gestoreSalvataggi;
-    private final NemicoLoader nemicoLoader = new NemicoLoader();
+    private GestoreIncontri gestoreIncontri;
 
     private CombatManager combatManager;
     private boolean inventarioVisibile = false;
@@ -56,16 +53,17 @@ public class CombattimentoController {
     public void inizializza(GestoreSchermate gestoreSchermate,
                             Partita partita,
                             ConfigurazioneGioco configurazione,
-                            GestoreSalvataggi gestoreSalvataggi) {
+                            GestoreSalvataggi gestoreSalvataggi,
+                            GestoreIncontri gestoreIncontri) {
         this.gestoreSchermate = gestoreSchermate;
         this.partita = partita;
         this.configurazione = configurazione;
         this.gestoreSalvataggi = gestoreSalvataggi;
+        this.gestoreIncontri = gestoreIncontri;
 
         InterfacciaUtente uiGrafica = new GuiInterfacciaUtente(this::aggiungiMessaggioLog);
         combatManager = new CombatManager(
-                partita.getGiocatore(),
-                partita.getNemicoCorrente(),
+                partita,
                 uiGrafica,
                 configurazione.getOggetti());
 
@@ -146,7 +144,6 @@ public class CombattimentoController {
         if (stato.getHpEroe() <= 0) {
             continuaBtn.setText("Torna al Menu");
         } else {
-            partita.registraVittoria();
             continuaBtn.setText("Prossimo Nemico");
         }
     }
@@ -194,9 +191,7 @@ public class CombattimentoController {
         pannelloInventario.getChildren().add(chiudiBtn);
     }
 
-    private void assegnaNuovoNemico() {
-        List<Nemico> nemici = nemicoLoader.caricaNemici();
-        Nemico scelto = nemici.get(RANDOM.nextInt(nemici.size()));
-        partita.setNemicoCorrente(scelto);
-    }
+        private void assegnaNuovoNemico() {
+            gestoreIncontri.assegnaNemicoCasuale(partita, configurazione.getNemici());
+        }
 }

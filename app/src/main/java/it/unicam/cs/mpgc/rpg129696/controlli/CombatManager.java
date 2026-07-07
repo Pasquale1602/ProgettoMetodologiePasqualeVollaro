@@ -2,6 +2,7 @@ package it.unicam.cs.mpgc.rpg129696.controlli;
 
 import it.unicam.cs.mpgc.rpg129696.modelli.oggetti.Contenuto;
 import it.unicam.cs.mpgc.rpg129696.modelli.oggetti.Oggetto;
+import it.unicam.cs.mpgc.rpg129696.modelli.partita.Partita;
 import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.Giocatore;
 import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.Nemico;
 import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.PersonaggioGiocabile;
@@ -12,7 +13,8 @@ import java.util.Objects;
 import java.util.Random;
 
 /**
- * Gestisce il combattimento a turni tra il giocatore e un nemico.
+ * Gestisce il combattimento a turni tra il giocatore e il nemico corrente
+ * della partita.
  *
  * La classe non legge input direttamente: espone metodi pubblici che possono
  * essere chiamati da una interfaccia grafica, da una console o da test.
@@ -21,8 +23,7 @@ public class CombatManager {
 
     private static final int PROBABILITA_DROP_PERCENTO = 50;
 
-    private final Giocatore giocatore;
-    private final Nemico nemico;
+    private final Partita partita;
     private final InterfacciaUtente ui;
     private final List<Oggetto> oggettiDisponibili;
     private final GestoreRicompense gestoreRicompense;
@@ -31,18 +32,51 @@ public class CombatManager {
     private boolean combattimentoInCorso;
     private int numeroTurno;
 
-    public CombatManager(Giocatore giocatore, Nemico nemico, InterfacciaUtente ui) {
-        this(giocatore, nemico, ui, List.of());
+    public CombatManager(Partita partita, InterfacciaUtente ui) {
+        this(partita, ui, List.of());
     }
 
-    public CombatManager(Giocatore giocatore, Nemico nemico, InterfacciaUtente ui,
-                         List<Oggetto> oggettiDisponibili) {
-        this.giocatore = Objects.requireNonNull(giocatore, "Il giocatore non puo essere null");
-        this.nemico = Objects.requireNonNull(nemico, "Il nemico non puo essere null");
+    public CombatManager(Partita partita, InterfacciaUtente ui, List<Oggetto> oggettiDisponibili) {
+        this(partita, ui, oggettiDisponibili, new GestoreRicompense(), new Random());
+    }
+
+    /**
+     * Costruttore completo che permette di iniettare le dipendenze
+     * responsabili della casualita'.
+     *
+     * @param partita la partita corrente
+     * @param ui l'interfaccia utente usata per mostrare i messaggi
+     * @param oggettiDisponibili gli oggetti che possono essere ottenuti come ricompensa
+     * @param gestoreRicompense gestore responsabile dell'estrazione della ricompensa
+     * @param random generatore casuale
+     */
+    public CombatManager(
+            Partita partita,
+            InterfacciaUtente ui,
+            List<Oggetto> oggettiDisponibili,
+            GestoreRicompense gestoreRicompense,
+            Random random) {
+
+        this.partita = Objects.requireNonNull(partita, "La partita non puo essere null");
+
+        if (partita.getGiocatore() == null) {
+            throw new IllegalArgumentException("La partita deve avere un giocatore");
+        }
+        if (partita.getGiocatore().getPersonaggio() == null) {
+            throw new IllegalArgumentException("La partita deve avere un personaggio giocabile");
+        }
+        if (partita.getNemicoCorrente() == null) {
+            throw new IllegalArgumentException("La partita deve avere un nemico corrente");
+        }
+
         this.ui = Objects.requireNonNull(ui, "L'interfaccia utente non puo essere null");
         this.oggettiDisponibili = oggettiDisponibili == null ? List.of() : oggettiDisponibili;
-        this.gestoreRicompense = new GestoreRicompense();
-        this.random = new Random();
+        this.gestoreRicompense = Objects.requireNonNull(
+                gestoreRicompense,
+                "Il gestore ricompense non puo essere null"
+        );
+        this.random = Objects.requireNonNull(random, "Il generatore casuale non puo essere null");
+
         this.combattimentoInCorso = true;
         this.numeroTurno = 1;
     }
@@ -51,7 +85,8 @@ public class CombatManager {
      * Inizializza lo scontro e mostra lo stato iniziale.
      */
     public void avviaScontro() {
-        PersonaggioGiocabile eroe = giocatore.getPersonaggio();
+        PersonaggioGiocabile eroe = getEroe();
+        Nemico nemico = getNemicoCorrente();
 
         ui.mostraMessaggio("Lo scontro ha inizio! " + eroe.getNome() + " VS " + nemico.getNome());
         mostraStatoCombattimento();
@@ -65,10 +100,10 @@ public class CombatManager {
             return;
         }
 
-        PersonaggioGiocabile eroe = giocatore.getPersonaggio();
+        PersonaggioGiocabile eroe = getEroe();
 
         ui.mostraMessaggio(eroe.getNome() + " lancia un attacco base!");
-        eroe.attacca(nemico);
+        eroe.attacca(getNemicoCorrente());
 
         completaTurnoGiocatore();
     }
@@ -81,10 +116,10 @@ public class CombatManager {
             return;
         }
 
-        PersonaggioGiocabile eroe = giocatore.getPersonaggio();
+        PersonaggioGiocabile eroe = getEroe();
 
         ui.mostraMessaggio(eroe.getNome() + " usa la sua abilita speciale!");
-        eroe.usaAbilita(nemico);
+        eroe.usaAbilita(getNemicoCorrente());
 
         completaTurnoGiocatore();
     }
@@ -99,7 +134,7 @@ public class CombatManager {
             return;
         }
 
-        PersonaggioGiocabile eroe = giocatore.getPersonaggio();
+        PersonaggioGiocabile eroe = getEroe();
         List<Contenuto> inventario = eroe.getInventario().getContenuto();
 
         if (indiceOggetto < 0 || indiceOggetto >= inventario.size()) {
@@ -138,17 +173,20 @@ public class CombatManager {
     }
 
     private void eseguiTurnoNemico() {
+        Nemico nemico = getNemicoCorrente();
+
         ui.mostraMessaggio("E' il turno di " + nemico.getNome() + "...");
-        nemico.eseguiAzioneDiTurno(giocatore.getPersonaggio());
+        nemico.eseguiAzioneDiTurno(getEroe());
     }
 
     private void aggiornaModificatoriFineTurno() {
-        giocatore.getPersonaggio().aggiornaTurnoModificatori();
-        nemico.aggiornaTurnoModificatori();
+        getEroe().aggiornaTurnoModificatori();
+        getNemicoCorrente().aggiornaTurnoModificatori();
     }
 
     private void mostraStatoCombattimento() {
-        PersonaggioGiocabile eroe = giocatore.getPersonaggio();
+        PersonaggioGiocabile eroe = getEroe();
+        Nemico nemico = getNemicoCorrente();
 
         ui.mostraMessaggio("--- TURNO " + numeroTurno + " ---");
         ui.mostraMessaggio(eroe.getNome() + " HP: "
@@ -158,7 +196,8 @@ public class CombatManager {
     }
 
     private boolean controllaFineScontro() {
-        PersonaggioGiocabile eroe = giocatore.getPersonaggio();
+        PersonaggioGiocabile eroe = getEroe();
+        Nemico nemico = getNemicoCorrente();
 
         if (!eroe.isVivo()) {
             gestisciSconfitta();
@@ -179,13 +218,17 @@ public class CombatManager {
     }
 
     private void gestisciVittoria(PersonaggioGiocabile eroe) {
+        Nemico nemico = getNemicoCorrente();
+
         ui.mostraMessaggio("Vittoria! " + nemico.getNome() + " e' stato abbattuto!");
         ui.mostraMessaggio("Hai guadagnato " + nemico.getRicompensaEsperienza() + " punti esperienza!");
 
-        int livelliGuadagnati = giocatore.aggiungiEsperienza(nemico.getRicompensaEsperienza());
+        int livelliGuadagnati = getGiocatoreCorrente()
+                .aggiungiEsperienza(nemico.getRicompensaEsperienza());
         mostraAvanzamentoLivello(eroe, livelliGuadagnati);
 
         assegnaRicompensaOggetto(eroe);
+        partita.registraVittoria();
 
         combattimentoInCorso = false;
     }
@@ -194,6 +237,7 @@ public class CombatManager {
         if (oggettiDisponibili.isEmpty()) {
             return;
         }
+
         if (random.nextInt(100) >= PROBABILITA_DROP_PERCENTO) {
             return;
         }
@@ -205,9 +249,11 @@ public class CombatManager {
 
         boolean aggiunto = eroe.getInventario().aggiungiOggetto(oggettoTrovato, 1);
         if (aggiunto) {
-            ui.mostraMessaggio(nemico.getNome() + " ha lasciato cadere: " + oggettoTrovato.getNome() + "!");
+            ui.mostraMessaggio(getNemicoCorrente().getNome()
+                    + " ha lasciato cadere: " + oggettoTrovato.getNome() + "!");
         } else {
-            ui.mostraMessaggio("Hai trovato " + oggettoTrovato.getNome() + ", ma l'inventario e' pieno!");
+            ui.mostraMessaggio("Hai trovato "
+                    + oggettoTrovato.getNome() + ", ma l'inventario e' pieno!");
         }
     }
 
@@ -219,24 +265,14 @@ public class CombatManager {
         }
     }
 
-    public boolean isCombattimentoInCorso() {
-        return combattimentoInCorso;
-    }
-
-    public Giocatore getGiocatore() {
-        return giocatore;
-    }
-
-    public Nemico getNemico() {
-        return nemico;
-    }
     /**
      * Restituisce lo stato corrente del combattimento.
      *
      * @return stato aggiornato dello scontro
      */
     public StatoCombattimento getStatoCombattimento() {
-        PersonaggioGiocabile eroe = giocatore.getPersonaggio();
+        PersonaggioGiocabile eroe = getEroe();
+        Nemico nemico = getNemicoCorrente();
 
         return new StatoCombattimento(
                 eroe.getNome(),
@@ -248,5 +284,29 @@ public class CombatManager {
                 numeroTurno,
                 combattimentoInCorso
         );
+    }
+
+    public boolean isCombattimentoInCorso() {
+        return combattimentoInCorso;
+    }
+
+    public Giocatore getGiocatore() {
+        return getGiocatoreCorrente();
+    }
+
+    public Nemico getNemico() {
+        return getNemicoCorrente();
+    }
+
+    private Giocatore getGiocatoreCorrente() {
+        return partita.getGiocatore();
+    }
+
+    private PersonaggioGiocabile getEroe() {
+        return partita.getGiocatore().getPersonaggio();
+    }
+
+    private Nemico getNemicoCorrente() {
+        return partita.getNemicoCorrente();
     }
 }

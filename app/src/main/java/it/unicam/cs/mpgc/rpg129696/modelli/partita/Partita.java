@@ -73,4 +73,27 @@ public class Partita {
     public void aggiornaUltimoSalvataggio() {
         ultimoSalvataggio = LocalDateTime.now();
     }
+
+    /**
+     * Ripristina il numero di combattimenti vinti da un salvataggio.
+     *
+     * @param combattimentiVinti numero di combattimenti vinti salvati
+     * @throws IllegalArgumentException se il valore e' negativo
+     */
+    public void ripristinaCombattimentiVinti(int combattimentiVinti) {
+        if (combattimentiVinti < 0) {
+            throw new IllegalArgumentException("Il numero di combattimenti vinti non puo essere negativo");
+        }
+
+        this.combattimentiVinti = combattimentiVinti;
+    }
+
+    /**
+     * Ripristina la data dell'ultimo salvataggio.
+     *
+     * @param ultimoSalvataggio data dell'ultimo salvataggio, puo essere null
+     */
+    public void ripristinaUltimoSalvataggio(LocalDateTime ultimoSalvataggio) {
+        this.ultimoSalvataggio = ultimoSalvataggio;
+    }
 }

@@ -1,10 +1,10 @@
-package it.unicam.cs.mpgc.rpg129696.controlli;
+package it.unicam.cs.mpgc.rpg129696.modelli.comportamenti;
 
 import it.unicam.cs.mpgc.rpg129696.modelli.modificatori.ModificatoreAttacco;
 import it.unicam.cs.mpgc.rpg129696.modelli.modificatori.ModificatoreTemporaneo;
 import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.PersonaggioBase;
 
-public class ComportamentoBoss implements ComportamentoNemico{
+public class ComportamentoBoss implements ComportamentoNemico {
     private final int bonusAttacco;
     private final int durata;
     private boolean potenziato = false;

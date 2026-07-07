@@ -1,7 +1,6 @@
 package it.unicam.cs.mpgc.rpg129696.controlli;
 
 import it.unicam.cs.mpgc.rpg129696.modelli.oggetti.Oggetto;
-import javafx.stage.Stage;
 
 import java.util.List;
 import java.util.Random;

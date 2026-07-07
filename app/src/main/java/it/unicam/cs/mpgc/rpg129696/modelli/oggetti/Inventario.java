@@ -64,18 +64,21 @@ public class Inventario {
             return false;
         }
 
-        return contenuto.stream()
-                .filter(slot -> slot.getOggetto().equals(oggetto))
-                .findFirst()
-                .map(slot -> {
-                    if (slot.getQuantita() > 1) {
-                        slot.setQuantita(slot.getQuantita() - 1);
-                    } else {
-                        contenuto.remove(slot);
-                    }
-                    return true;
-                })
-                .orElse(false);
+        for (int i = 0; i < contenuto.size(); i++) {
+            Contenuto slot = contenuto.get(i);
+
+            if (slot.getOggetto().equals(oggetto)) {
+                if (slot.getQuantita() > 1) {
+                    slot.setQuantita(slot.getQuantita() - 1);
+                } else {
+                    contenuto.remove(i);
+                }
+
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**Restituisce il contenuto dell'inventario

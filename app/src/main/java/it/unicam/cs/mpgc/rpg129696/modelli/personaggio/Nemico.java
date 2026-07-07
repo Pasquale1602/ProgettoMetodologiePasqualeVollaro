@@ -1,6 +1,6 @@
 package it.unicam.cs.mpgc.rpg129696.modelli.personaggio;
 
-import it.unicam.cs.mpgc.rpg129696.controlli.ComportamentoNemico;
+import it.unicam.cs.mpgc.rpg129696.modelli.comportamenti.ComportamentoNemico;
 import it.unicam.cs.mpgc.rpg129696.modelli.enumerati.TipoComportamento;
 
 public class Nemico extends PersonaggioBase {

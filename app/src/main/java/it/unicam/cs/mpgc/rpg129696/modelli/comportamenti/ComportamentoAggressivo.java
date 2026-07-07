@@ -1,4 +1,4 @@
-package it.unicam.cs.mpgc.rpg129696.controlli;
+package it.unicam.cs.mpgc.rpg129696.modelli.comportamenti;
 
 import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.PersonaggioBase;
 
