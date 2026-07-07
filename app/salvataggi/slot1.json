@@ -1,0 +1,16 @@
+{
+  "nomeUtente": "Giocatore",
+  "nomePersonaggio": "Macellaio",
+  "livello": 1,
+  "esperienza": 25,
+  "esperienzaPerLivelloSuccessivo": 100,
+  "hpAttuali": 96,
+  "combattimentiVinti": 1,
+  "ultimoSalvataggio": "2026-07-07T12:53:53.181793500",
+  "inventario": [
+    {
+      "idOggetto": 1,
+      "quantita": 1
+    }
+  ]
+}

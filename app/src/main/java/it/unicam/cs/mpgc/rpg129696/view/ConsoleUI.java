@@ -4,6 +4,13 @@ import it.unicam.cs.mpgc.rpg129696.modelli.oggetti.Contenuto;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Implementazione testuale di {@link InterfacciaUtente}.
+ *
+ * Oltre al contratto minimo di {@link InterfacciaUtente} (mostrare messaggi),
+ * espone i metodi per richiedere scelte bloccanti da input console, usati da
+ * {@link GiocoConsole} per pilotare il {@code CombatManager}.
+ */
 public class ConsoleUI implements InterfacciaUtente {
 
     private final Scanner scanner = new Scanner(System.in);
@@ -13,7 +20,6 @@ public class ConsoleUI implements InterfacciaUtente {
         System.out.println(messaggio);
     }
 
-    @Override
     public int richiediSceltaAzionePrincipale() {
         int scelta = -1;
         while (scelta < 1 || scelta > 3) {
@@ -32,8 +38,12 @@ public class ConsoleUI implements InterfacciaUtente {
         return scelta;
     }
 
-    @Override
     public int richiediSceltaOggetto(List<Contenuto> inventario) {
+        if (inventario.isEmpty()) {
+            System.out.println("Inventario vuoto.");
+            return -1;
+        }
+
         System.out.println("\n--- INVENTARIO ---");
         for (int i = 0; i < inventario.size(); i++) {
             Contenuto c = inventario.get(i);
@@ -44,11 +54,10 @@ public class ConsoleUI implements InterfacciaUtente {
 
         try {
             int scelta = Integer.parseInt(scanner.nextLine());
-            // Restituiamo indice 0-based, quindi sottraiamo 1 se l'utente sceglie un oggetto
             if (scelta == 0) return -1;
             return scelta - 1;
         } catch (NumberFormatException e) {
-            return -1; // Torna indietro in caso di errore
+            return -1;
         }
     }
 }

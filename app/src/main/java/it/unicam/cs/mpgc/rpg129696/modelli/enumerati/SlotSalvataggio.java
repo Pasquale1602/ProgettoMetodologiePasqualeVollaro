@@ -5,9 +5,7 @@ package it.unicam.cs.mpgc.rpg129696.modelli.enumerati;
  */
 public enum SlotSalvataggio {
 
-    SLOT_1("salvataggi/slot1.json"),
-    SLOT_2("salvataggi/slot2.json"),
-    SLOT_3("salvataggi/slot3.json");
+    SLOT_1("salvataggi/slot1.json");
 
     private final String percorso;
 

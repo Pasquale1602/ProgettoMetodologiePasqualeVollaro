@@ -1,18 +1,15 @@
 package it.unicam.cs.mpgc.rpg129696.view;
 
 /**
- * Definisce le operazioni minime che una interfaccia utente deve offrire
- * al resto del gioco.
+ * Definisce l'unico contratto che il motore di gioco richiede a una UI:
+ * la capacità di mostrare un messaggio prodotto dal gioco.
  *
- * In questo modo i controlli non dipendono da una specifica interfaccia
- * grafica o testuale.
+ * Le scelte dell'utente (attacco, abilita, oggetto...) non passano da questa
+ * interfaccia: ogni client (GUI, console, futuri client mobile/web) chiama
+ * direttamente i metodi pubblici di {@link it.unicam.cs.mpgc.rpg129696.controlli.CombatManager},
+ * nel modo più naturale per la propria piattaforma (bottoni, menu testuale, richieste HTTP...).
  */
 public interface InterfacciaUtente {
 
-    /**
-     * Mostra un messaggio prodotto dal gioco.
-     *
-     * @param messaggio il messaggio da mostrare
-     */
     void mostraMessaggio(String messaggio);
 }

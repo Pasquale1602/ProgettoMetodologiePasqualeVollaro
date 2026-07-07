@@ -8,6 +8,7 @@ import it.unicam.cs.mpgc.rpg129696.modelli.partita.Partita;
 import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.PersonaggioGiocabile;
 import it.unicam.cs.mpgc.rpg129696.persistenza.dto.PartitaDTO;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -72,7 +73,13 @@ public class GestoreSalvataggi {
             throw new IllegalArgumentException("Il percorso del salvataggio non puo essere vuoto");
         }
 
-        try (FileWriter writer = new FileWriter(percorso)) {
+        File file = new File(percorso);
+        File directoryPadre = file.getParentFile();
+        if (directoryPadre != null && !directoryPadre.exists()) {
+            directoryPadre.mkdirs();
+        }
+
+        try (FileWriter writer = new FileWriter(file))  {
             gson.toJson(partita, writer);
         } catch (IOException e) {
             throw new RuntimeException("Errore durante il salvataggio della partita in: " + percorso, e);

@@ -9,6 +9,7 @@ import it.unicam.cs.mpgc.rpg129696.view.InterfacciaUtente;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 /**
  * Gestisce il combattimento a turni tra il giocatore e un nemico.
@@ -18,17 +19,30 @@ import java.util.Objects;
  */
 public class CombatManager {
 
+    private static final int PROBABILITA_DROP_PERCENTO = 50;
+
     private final Giocatore giocatore;
     private final Nemico nemico;
     private final InterfacciaUtente ui;
+    private final List<Oggetto> oggettiDisponibili;
+    private final GestoreRicompense gestoreRicompense;
+    private final Random random;
 
     private boolean combattimentoInCorso;
     private int numeroTurno;
 
     public CombatManager(Giocatore giocatore, Nemico nemico, InterfacciaUtente ui) {
+        this(giocatore, nemico, ui, List.of());
+    }
+
+    public CombatManager(Giocatore giocatore, Nemico nemico, InterfacciaUtente ui,
+                         List<Oggetto> oggettiDisponibili) {
         this.giocatore = Objects.requireNonNull(giocatore, "Il giocatore non puo essere null");
         this.nemico = Objects.requireNonNull(nemico, "Il nemico non puo essere null");
         this.ui = Objects.requireNonNull(ui, "L'interfaccia utente non puo essere null");
+        this.oggettiDisponibili = oggettiDisponibili == null ? List.of() : oggettiDisponibili;
+        this.gestoreRicompense = new GestoreRicompense();
+        this.random = new Random();
         this.combattimentoInCorso = true;
         this.numeroTurno = 1;
     }
@@ -171,7 +185,30 @@ public class CombatManager {
         int livelliGuadagnati = giocatore.aggiungiEsperienza(nemico.getRicompensaEsperienza());
         mostraAvanzamentoLivello(eroe, livelliGuadagnati);
 
+        assegnaRicompensaOggetto(eroe);
+
         combattimentoInCorso = false;
+    }
+
+    private void assegnaRicompensaOggetto(PersonaggioGiocabile eroe) {
+        if (oggettiDisponibili.isEmpty()) {
+            return;
+        }
+        if (random.nextInt(100) >= PROBABILITA_DROP_PERCENTO) {
+            return;
+        }
+
+        Oggetto oggettoTrovato = gestoreRicompense.estraiOggetto(oggettiDisponibili);
+        if (oggettoTrovato == null) {
+            return;
+        }
+
+        boolean aggiunto = eroe.getInventario().aggiungiOggetto(oggettoTrovato, 1);
+        if (aggiunto) {
+            ui.mostraMessaggio(nemico.getNome() + " ha lasciato cadere: " + oggettoTrovato.getNome() + "!");
+        } else {
+            ui.mostraMessaggio("Hai trovato " + oggettoTrovato.getNome() + ", ma l'inventario e' pieno!");
+        }
     }
 
     private void mostraAvanzamentoLivello(PersonaggioGiocabile eroe, int livelliGuadagnati) {

@@ -7,6 +7,9 @@ public class PersonaggioGiocabile extends PersonaggioBase{
 
     private final Abilita abilita;
     private final Inventario inventario;
+    private static final int BONUS_ATTACCO_PER_LIVELLO = 3;
+    private static final int BONUS_DIFESA_PER_LIVELLO = 2;
+    private static final int BONUS_HP_PER_LIVELLO = 10;
 
 
     public PersonaggioGiocabile(String nome, Statistiche statisticheBase, Abilita abilita) {
@@ -36,9 +39,9 @@ public class PersonaggioGiocabile extends PersonaggioBase{
     public void riceviBonusLevelUp(int quantiLivelli) {
         if (quantiLivelli <= 0) return;
 
-        int bonusAttacco = 3 * quantiLivelli;
-        int bonusDifesa = 2 * quantiLivelli;
-        int bonusHp = 10 * quantiLivelli;
+        int bonusAttacco = BONUS_ATTACCO_PER_LIVELLO * quantiLivelli;
+        int bonusDifesa = BONUS_DIFESA_PER_LIVELLO * quantiLivelli;
+        int bonusHp = BONUS_HP_PER_LIVELLO * quantiLivelli;
 
         Statistiche bonus = new Statistiche (bonusAttacco, bonusDifesa, bonusHp);
         Statistiche nuoveStatistiche = getStatisticheBase().sommaStatistiche(bonus);

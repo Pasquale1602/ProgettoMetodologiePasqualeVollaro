@@ -55,10 +55,27 @@ public class GestorePartita {
             String nomePersonaggio,
             List<PersonaggioGiocabile> personaggiDisponibili) {
 
-        return personaggiDisponibili.stream()
+        PersonaggioGiocabile modello = personaggiDisponibili.stream()
                 .filter(personaggio -> personaggio.getNome().equalsIgnoreCase(nomePersonaggio))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException(
                         "Personaggio non trovato: " + nomePersonaggio));
+
+        return copiaNuova(modello);
+    }
+
+    /**
+     * Crea una nuova istanza indipendente del personaggio scelto, a partire
+     * dal "modello" caricato una sola volta all'avvio del gioco.
+     *
+     * Evita che HP, inventario e bonus di livello di una partita precedente
+     * rimangano attaccati al personaggio condiviso e si ripresentino
+     * in una nuova partita.
+     */
+    private PersonaggioGiocabile copiaNuova(PersonaggioGiocabile modello) {
+        return new PersonaggioGiocabile(
+                modello.getNome(),
+                modello.getStatisticheBase(),
+                modello.getAbilita());
     }
 }

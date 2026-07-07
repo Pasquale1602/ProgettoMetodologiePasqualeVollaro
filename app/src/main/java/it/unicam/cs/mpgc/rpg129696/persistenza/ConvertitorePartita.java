@@ -79,6 +79,15 @@ public class ConvertitorePartita {
      * @return la partita ricostruita
      * @throws IllegalArgumentException se i dati del salvataggio non sono validi
      */
+    /**
+     * Ricostruisce una {@link Partita} a partire da un DTO di salvataggio.
+     *
+     * @param dto i dati della partita salvata
+     * @param personaggiDisponibili i personaggi caricati dal file JSON
+     * @param oggettiDisponibili gli oggetti caricati dal file JSON
+     * @return la partita ricostruita
+     * @throws IllegalArgumentException se i dati del salvataggio non sono validi
+     */
     public static Partita fromDTO(
             PartitaDTO dto,
             List<PersonaggioGiocabile> personaggiDisponibili,
@@ -95,6 +104,12 @@ public class ConvertitorePartita {
         }
 
         PersonaggioGiocabile personaggio = trovaPersonaggio(dto.nomePersonaggio, personaggiDisponibili);
+
+        int livelliDaApplicare = dto.livello - 1; // livello 1 = nessun bonus da applicare
+        if (livelliDaApplicare > 0) {
+            personaggio.riceviBonusLevelUp(livelliDaApplicare);
+        }
+
         personaggio.ripristinaHp(dto.hpAttuali);
 
         Progressione progressione = new Progressione(
@@ -127,11 +142,16 @@ public class ConvertitorePartita {
             throw new IllegalArgumentException("Il nome del personaggio salvato non puo essere vuoto");
         }
 
-        return personaggiDisponibili.stream()
+        PersonaggioGiocabile modello = personaggiDisponibili.stream()
                 .filter(personaggio -> personaggio.getNome().equals(nomePersonaggio))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException(
                         "Personaggio non trovato nel salvataggio: " + nomePersonaggio));
+
+        return new PersonaggioGiocabile(
+                modello.getNome(),
+                modello.getStatisticheBase(),
+                modello.getAbilita());
     }
 
     private static Oggetto trovaOggetto(int idOggetto, List<Oggetto> oggettiDisponibili) {

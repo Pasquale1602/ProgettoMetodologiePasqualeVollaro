@@ -14,9 +14,6 @@ public class Contenuto {
     public int getQuantita() {
         return quantita;
     }
-    public void setOggetto(Oggetto oggetto) {
-        this.oggetto = oggetto;
-    }
     public void setQuantita(int quantita) {
         this.quantita = quantita;
     }

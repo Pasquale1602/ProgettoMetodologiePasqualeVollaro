@@ -1,6 +1,7 @@
 package it.unicam.cs.mpgc.rpg129696.controlli;
 
 import it.unicam.cs.mpgc.rpg129696.modelli.oggetti.Oggetto;
+import javafx.stage.Stage;
 
 import java.util.List;
 import java.util.Random;
@@ -15,7 +16,9 @@ public class GestoreRicompense {
     public GestoreRicompense() {
         this.random = new Random();
     }
-
+    public GestoreRicompense(Random random) {
+        this.random = random;
+    }
     /**
      * Estrae casualmente un oggetto come ricompensa.
      *
