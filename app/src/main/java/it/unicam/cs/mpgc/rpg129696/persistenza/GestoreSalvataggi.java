@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import it.unicam.cs.mpgc.rpg129696.modelli.enumerati.SlotSalvataggio;
 import it.unicam.cs.mpgc.rpg129696.modelli.oggetti.Oggetto;
 import it.unicam.cs.mpgc.rpg129696.modelli.partita.Partita;
+import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.Nemico;
 import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.PersonaggioGiocabile;
 import it.unicam.cs.mpgc.rpg129696.persistenza.dto.PartitaDTO;
 
@@ -117,10 +118,11 @@ public class GestoreSalvataggi {
     public Partita caricaPartita(
             String percorso,
             List<PersonaggioGiocabile> personaggiDisponibili,
-            List<Oggetto> oggettiDisponibili) {
+            List<Oggetto> oggettiDisponibili,
+            List<Nemico> nemiciDisponibili) {
 
         PartitaDTO dto = carica(percorso);
-        return ConvertitorePartita.fromDTO(dto, personaggiDisponibili, oggettiDisponibili);
+        return ConvertitorePartita.fromDTO(dto, personaggiDisponibili, oggettiDisponibili, nemiciDisponibili);
     }
 
     /**
@@ -134,12 +136,13 @@ public class GestoreSalvataggi {
     public Partita caricaPartita(
             SlotSalvataggio slot,
             List<PersonaggioGiocabile> personaggiDisponibili,
-            List<Oggetto> oggettiDisponibili) {
+            List<Oggetto> oggettiDisponibili,
+            List<Nemico> nemiciDisponibili) {
 
         if (slot == null) {
             throw new IllegalArgumentException("Lo slot di salvataggio non puo essere null");
         }
 
-        return caricaPartita(slot.getPercorso(), personaggiDisponibili, oggettiDisponibili);
+        return caricaPartita(slot.getPercorso(), personaggiDisponibili, oggettiDisponibili, nemiciDisponibili);
     }
 }

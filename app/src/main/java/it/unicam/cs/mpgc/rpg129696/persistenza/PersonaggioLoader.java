@@ -23,6 +23,7 @@ public class PersonaggioLoader {
 
     private final Gson gson = new Gson();
     private final AbilitaLoader abilitaLoader;
+    private final static String PATH_PERSONAGGI = "/resources/personaggi.json";
 
     public PersonaggioLoader(AbilitaLoader abilitaLoader) {
         this.abilitaLoader = abilitaLoader;
@@ -92,6 +93,6 @@ public class PersonaggioLoader {
      * @return lista di personaggi giocabili
      */
     public List<PersonaggioGiocabile> caricaPersonaggi() {
-        return carica("/resources/personaggi.json");
+        return carica(PATH_PERSONAGGI);
     }
 }

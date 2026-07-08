@@ -9,6 +9,7 @@ import it.unicam.cs.mpgc.rpg129696.persistenza.NemicoLoader;
 import it.unicam.cs.mpgc.rpg129696.persistenza.OggettoLoader;
 import it.unicam.cs.mpgc.rpg129696.persistenza.PersonaggioLoader;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,6 +46,18 @@ public class ConfigurazioneGioco {
 
     public List<Nemico> getBoss() {
         return boss;
+    }
+
+    /**
+     * Restituisce nemici normali e boss uniti in un'unica lista.
+     * Utile per ricostruire il nemico corrente durante il caricamento
+     * di una partita salvata, quando non si sa a priori se il nemico
+     * salvato fosse un boss o un nemico normale.
+     */
+    public List<Nemico> getTuttiNemici() {
+        List<Nemico> tutti = new ArrayList<>(nemici);
+        tutti.addAll(boss);
+        return tutti;
     }
 
     public List<Oggetto> getOggetti() {

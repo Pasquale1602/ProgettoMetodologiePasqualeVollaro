@@ -40,7 +40,9 @@ public class GiocoConsole {
             return;
         }
 
-        assegnaNuovoNemico(partita);
+        if (partita.getNemicoCorrente() == null) {
+            assegnaNuovoNemico(partita);
+        }
 
         boolean continuaGioco = true;
         while (continuaGioco) {
@@ -89,7 +91,8 @@ public class GiocoConsole {
             return gestoreSalvataggi.caricaPartita(
                     SlotSalvataggio.SLOT_1,
                     configurazione.getPersonaggi(),
-                    configurazione.getOggetti());
+                    configurazione.getOggetti(),
+                    configurazione.getTuttiNemici());
         } catch (RuntimeException ex) {
             ui.mostraMessaggio("Impossibile caricare la partita: " + ex.getMessage());
             return null;

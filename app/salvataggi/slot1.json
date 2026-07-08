@@ -1,0 +1,14 @@
+{
+  "nomeUtente": "Giocatore",
+  "nomePersonaggio": "Macellaio",
+  "livello": 1,
+  "esperienza": 40,
+  "esperienzaPerLivelloSuccessivo": 100,
+  "hpAttuali": 60,
+  "combattimentiVinti": 2,
+  "ultimoSalvataggio": "2026-07-08T15:11:32.800434400",
+  "nomeNemico": "Saccheggiatore",
+  "hpNemico": 33,
+  "comportamentoNemico": "AGGRESSIVO",
+  "inventario": []
+}

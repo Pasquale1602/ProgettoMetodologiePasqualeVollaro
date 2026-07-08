@@ -4,8 +4,10 @@ import it.unicam.cs.mpgc.rpg129696.modelli.oggetti.Contenuto;
 import it.unicam.cs.mpgc.rpg129696.modelli.oggetti.Oggetto;
 import it.unicam.cs.mpgc.rpg129696.modelli.partita.Partita;
 import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.Giocatore;
+import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.Nemico;
 import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.PersonaggioGiocabile;
 import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.Progressione;
+import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.Statistiche;
 import it.unicam.cs.mpgc.rpg129696.persistenza.dto.OggettoSalvatoDTO;
 import it.unicam.cs.mpgc.rpg129696.persistenza.dto.PartitaDTO;
 
@@ -60,6 +62,13 @@ public class ConvertitorePartita {
                 ? partita.getUltimoSalvataggio().toString()
                 : null;
 
+        Nemico nemicoCorrente = partita.getNemicoCorrente();
+        if (nemicoCorrente != null) {
+            dto.nomeNemico = nemicoCorrente.getNome();
+            dto.hpNemico = nemicoCorrente.getHpAttuali();
+            dto.comportamentoNemico = nemicoCorrente.getTipoComportamento();
+        }
+
         for (Contenuto contenuto : personaggio.getInventario().getContenuto()) {
             OggettoSalvatoDTO oggettoSalvato = new OggettoSalvatoDTO();
             oggettoSalvato.idOggetto = contenuto.getOggetto().getId();
@@ -80,19 +89,11 @@ public class ConvertitorePartita {
      * @return la partita ricostruita
      * @throws IllegalArgumentException se i dati del salvataggio non sono validi
      */
-    /**
-     * Ricostruisce una {@link Partita} a partire da un DTO di salvataggio.
-     *
-     * @param dto i dati della partita salvata
-     * @param personaggiDisponibili i personaggi caricati dal file JSON
-     * @param oggettiDisponibili gli oggetti caricati dal file JSON
-     * @return la partita ricostruita
-     * @throws IllegalArgumentException se i dati del salvataggio non sono validi
-     */
     public static Partita fromDTO(
             PartitaDTO dto,
             List<PersonaggioGiocabile> personaggiDisponibili,
-            List<Oggetto> oggettiDisponibili) {
+            List<Oggetto> oggettiDisponibili,
+            List<Nemico> nemiciDisponibili) {
 
         if (dto == null) {
             throw new IllegalArgumentException("Il DTO della partita non puo essere null");
@@ -102,6 +103,9 @@ public class ConvertitorePartita {
         }
         if (oggettiDisponibili == null) {
             throw new IllegalArgumentException("La lista degli oggetti disponibili non puo essere null");
+        }
+        if (nemiciDisponibili == null) {
+            throw new IllegalArgumentException("La lista dei nemici disponibili non puo essere null");
         }
 
         PersonaggioGiocabile personaggio = trovaPersonaggio(dto.nomePersonaggio, personaggiDisponibili);
@@ -133,7 +137,31 @@ public class ConvertitorePartita {
             partita.ripristinaUltimoSalvataggio(LocalDateTime.parse(dto.ultimoSalvataggio));
         }
 
+        if (dto.nomeNemico != null && !dto.nomeNemico.isBlank()) {
+            Nemico nemicoRicostruito = ricostruisciNemico(dto, nemiciDisponibili);
+            partita.setNemicoCorrente(nemicoRicostruito);
+        }
+
         return partita;
+    }
+
+    private static Nemico ricostruisciNemico(PartitaDTO dto, List<Nemico> nemiciDisponibili) {
+        Nemico modello = nemiciDisponibili.stream()
+                .filter(n -> n.getNome().equals(dto.nomeNemico)
+                        && n.getTipoComportamento() == dto.comportamentoNemico)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Nemico non trovato nel salvataggio: " + dto.nomeNemico));
+
+        Nemico nemico = new Nemico(
+                modello.getNome(),
+                new Statistiche(modello.getStatisticheBase()),
+                modello.getRicompensaEsperienza(),
+                modello.getComportamentoNemico(),
+                modello.getTipoComportamento());
+
+        nemico.ripristinaHp(dto.hpNemico);
+        return nemico;
     }
 
     private static PersonaggioGiocabile trovaPersonaggio(

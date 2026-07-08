@@ -83,8 +83,11 @@ public class MenuController {
             Partita partita = gestoreSalvataggi.caricaPartita(
                     SlotSalvataggio.SLOT_1,
                     configurazione.getPersonaggi(),
-                    configurazione.getOggetti());
-            assegnaNuovoNemico(partita);
+                    configurazione.getOggetti(),
+                    configurazione.getTuttiNemici());
+            if (partita.getNemicoCorrente() == null) {
+                assegnaNuovoNemico(partita);
+            }
             gestoreSchermate.mostraCombattimento(partita);
         } catch (RuntimeException ex) {
             mostraErrore("Impossibile caricare la partita: " + ex.getMessage());
