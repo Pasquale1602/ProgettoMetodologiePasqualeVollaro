@@ -19,7 +19,6 @@ import java.util.List;
 
 /**
  * Controller FXML per la schermata di combattimento.
- *
  * Viene istanziato automaticamente da JavaFX quando viene caricato combattimento.fxml.
  * Le dipendenze vengono iniettate tramite {@link #inizializza}.
  */
@@ -48,7 +47,7 @@ public class CombattimentoController {
 
     /**
      * Inietta le dipendenze e avvia il combattimento.
-     * Deve essere chiamato subito dopo il caricamento dell'FXML.
+     * Deve essere chiamato subito dopo il caricamento del FXML.
      */
     public void inizializza(GestoreSchermate gestoreSchermate,
                             Partita partita,

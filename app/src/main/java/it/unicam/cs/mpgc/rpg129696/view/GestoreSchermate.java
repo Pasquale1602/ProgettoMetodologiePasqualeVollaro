@@ -32,6 +32,12 @@ public class GestoreSchermate {
 
     private final GestoreIncontri gestoreIncontri;
 
+    /**
+     * Crea il gestore delle schermate inizializzando lo stage principale
+     * e i componenti necessari per la gestione del gioco.
+     *
+     * @param stage finestra principale dell'applicazione JavaFX
+     */
     public GestoreSchermate(Stage stage) {
         this.stage = stage;
         this.configurazione = new ConfigurazioneGioco();
@@ -84,7 +90,12 @@ public class GestoreSchermate {
             throw new RuntimeException("Impossibile caricare combattimento.fxml", e);
         }
     }
-
+    /**
+     * Imposta il contenuto della scena corrente sostituendo la root
+     * oppure creando una nuova scena se non esiste ancora.
+     *
+     * @param root elemento radice della schermata da visualizzare
+     */
     private void impostaSchermata(Parent root) {
         if (stage.getScene() == null) {
             Scene scene = new Scene(root, 900, 620);

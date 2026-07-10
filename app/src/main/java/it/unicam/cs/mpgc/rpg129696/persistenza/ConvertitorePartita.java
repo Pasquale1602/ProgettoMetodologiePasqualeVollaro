@@ -144,7 +144,14 @@ public class ConvertitorePartita {
 
         return partita;
     }
-
+    /**
+     * Ricostruisce un nemico utilizzando il modello presente tra i nemici disponibili
+     *
+     * @param dto dati del nemico salvato
+     * @param nemiciDisponibili lista dei nemici disponibili
+     * @return il nemico ricostruito
+     * @throws IllegalArgumentException se il nemico salvato non viene trovato
+     */
     private static Nemico ricostruisciNemico(PartitaDTO dto, List<Nemico> nemiciDisponibili) {
         Nemico modello = nemiciDisponibili.stream()
                 .filter(n -> n.getNome().equals(dto.nomeNemico)
@@ -157,13 +164,22 @@ public class ConvertitorePartita {
                 modello.getNome(),
                 new Statistiche(modello.getStatisticheBase()),
                 modello.getRicompensaEsperienza(),
-                modello.getComportamentoNemico(),
+                modello.getComportamentoNemico().nuovaIstanza(),  
                 modello.getTipoComportamento());
 
         nemico.ripristinaHp(dto.hpNemico);
         return nemico;
     }
-
+    /**
+     * Cerca un personaggio tra quelli disponibili e crea una nuova istanza
+     * con i dati del modello trovato.
+     *
+     * @param nomePersonaggio nome del personaggio da cercare
+     * @param personaggiDisponibili lista dei personaggi disponibili
+     * @return il personaggio ricostruito
+     * @throws IllegalArgumentException se il nome del personaggio è vuoto
+     *         o se il personaggio non viene trovato
+     */
     private static PersonaggioGiocabile trovaPersonaggio(
             String nomePersonaggio,
             List<PersonaggioGiocabile> personaggiDisponibili) {
@@ -183,7 +199,14 @@ public class ConvertitorePartita {
                 modello.getStatisticheBase(),
                 modello.getAbilita());
     }
-
+    /**
+     * Cerca un oggetto nella lista degli oggetti disponibili tramite il suo identificativo.
+     *
+     * @param idOggetto identificativo dell'oggetto da cercare
+     * @param oggettiDisponibili lista degli oggetti disponibili
+     * @return l'oggetto corrispondente all'identificativo fornito
+     * @throws IllegalArgumentException se l'oggetto non viene trovato
+     */
     private static Oggetto trovaOggetto(int idOggetto, List<Oggetto> oggettiDisponibili) {
         return oggettiDisponibili.stream()
                 .filter(oggetto -> oggetto.getId() == idOggetto)

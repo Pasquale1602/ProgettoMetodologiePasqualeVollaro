@@ -32,6 +32,10 @@ public class GiocoConsole {
     private final GestoreSalvataggi gestoreSalvataggi = new GestoreSalvataggi();
     private final GestoreIncontri gestoreIncontri = new GestoreIncontri();
 
+    /**
+     * Avvia il gioco da console gestendo la creazione o il caricamento
+     * della partita e il ciclo principale degli scontri.
+     */
     public void avvia() {
         ui.mostraMessaggio("=== TOXIC RAIN (console) ===");
         Partita partita = creaOCaricaPartita();
@@ -52,6 +56,12 @@ public class GiocoConsole {
         ui.mostraMessaggio("Grazie per aver giocato!");
     }
 
+    /**
+     * Permette all'utente di scegliere se creare una nuova partita,
+     * caricare un salvataggio oppure uscire dal gioco.
+     *
+     * @return la partita creata o caricata, oppure {@code null} se l'utente esce
+     */
     private Partita creaOCaricaPartita() {
         ui.mostraMessaggio("1. Nuova partita");
         ui.mostraMessaggio("2. Carica partita");
@@ -125,6 +135,11 @@ public class GiocoConsole {
         return chiediSeContinuare(partita);
     }
 
+    /**
+     * Esegue l'azione scelta dall'utente durante il combattimento.
+     *
+     * @param combatManager gestore dello scontro corrente
+     */
     private void eseguiAzioneUtente(CombatManager combatManager) {
         int scelta = ui.richiediSceltaAzionePrincipale();
 
@@ -136,6 +151,12 @@ public class GiocoConsole {
         }
     }
 
+    /**
+     * Permette all'utente di selezionare e utilizzare un oggetto
+     * presente nell'inventario del giocatore.
+     *
+     * @param combatManager gestore dello scontro corrente
+     */
     private void usaOggettoDaInventario(CombatManager combatManager) {
         List<Contenuto> inventario = combatManager.getGiocatore()
                 .getPersonaggio().getInventario().getContenuto();

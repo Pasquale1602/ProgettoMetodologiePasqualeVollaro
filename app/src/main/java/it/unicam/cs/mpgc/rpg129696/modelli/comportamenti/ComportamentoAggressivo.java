@@ -7,4 +7,10 @@ public class ComportamentoAggressivo implements ComportamentoNemico {
     public void eseguiTurno(PersonaggioBase nemico, PersonaggioBase bersaglio) {
         nemico.attacca(bersaglio);
     }
+
+        @Override
+        public ComportamentoNemico nuovaIstanza () {
+            return new ComportamentoAggressivo();
+        }
+
 }

@@ -2,7 +2,7 @@ package it.unicam.cs.mpgc.rpg129696.modelli.enumerati;
     /**
      * Definisce i tipi di abilità disponibili nel gioco.
      * Ogni valore corrisponde a un'abilità specifica di una classe di personaggio
-     * e viene utilizzato da {@code AbilitaFactory} per creare l'istanza corretta.
+     * e viene utilizzato da {@code CreatoreAbilita} per creare l'istanza corretta.
      */
     public enum TipoAbilita {
 

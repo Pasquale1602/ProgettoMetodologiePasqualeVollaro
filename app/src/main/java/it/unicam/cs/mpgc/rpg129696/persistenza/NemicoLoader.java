@@ -77,9 +77,10 @@ public class NemicoLoader {
     /**
      * Crea il comportamento corretto in base al tipo specificato nel JSON.
      *
-     * @param tipo il tipo di comportamento come stringa
+     * @param tipo il tipo di comportamento del nemico
+     * @param valore valore associato al comportamento
+     * @param durata durata dell'effetto del comportamento
      * @return il comportamento corretto
-     * @throws IllegalArgumentException se il tipo non è riconosciuto
      */
     private ComportamentoNemico creaComportamento(TipoComportamento tipo, int valore, int durata) {
         return switch (tipo) {

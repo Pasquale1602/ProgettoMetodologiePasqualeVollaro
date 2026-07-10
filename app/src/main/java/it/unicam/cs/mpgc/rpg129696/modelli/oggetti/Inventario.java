@@ -12,8 +12,11 @@ import java.util.List;
  */
 public class Inventario {
     private final List <Contenuto> contenuto;
-    private final int CAPACITA_MASSIMA = 12;
+    private static final int CAPACITA_MASSIMA = 12;
 
+    /**
+     * Crea un inventario vuoto.
+     */
     public Inventario () {
         this.contenuto = new ArrayList<>();
     }
@@ -26,6 +29,7 @@ public class Inventario {
      * @param oggetto l'oggetto da aggiungere
      * @param quantita la quantità dell'oggetto da aggiungere
      * @return true se l'aggiunta è andata a buon fine, false altrimenti
+     * @throws IllegalArgumentException se l'oggetto passato è null
      */
     public boolean aggiungiOggetto(Oggetto oggetto, int quantita) {
         if (oggetto == null) {

@@ -30,4 +30,8 @@ public class ComportamentoBoss implements ComportamentoNemico {
         }
         nemico.attacca(bersaglio);
     }
+    @Override
+    public ComportamentoNemico nuovaIstanza() {
+        return new ComportamentoBoss(bonusAttacco, durata);
+    }
 }

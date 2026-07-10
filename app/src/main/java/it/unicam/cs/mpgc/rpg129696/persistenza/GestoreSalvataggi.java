@@ -22,6 +22,10 @@ public class GestoreSalvataggi {
 
     private final Gson gson;
 
+    /**
+     * Crea un gestore dei salvataggi inizializzando il convertitore JSON
+     * con formattazione leggibile.
+     */
     public GestoreSalvataggi() {
         this.gson = new GsonBuilder()
                 .setPrettyPrinting()

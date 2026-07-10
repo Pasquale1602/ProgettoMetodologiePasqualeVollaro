@@ -1,7 +1,7 @@
 package it.unicam.cs.mpgc.rpg129696.persistenza.dto;
 
 /**
- * DTO usato per leggere gli oggetti dal file JSON.
+ * DTO utilizzato per rappresentare gli oggetti letti dal file JSON.
  */
 public class OggettoDTO {
 

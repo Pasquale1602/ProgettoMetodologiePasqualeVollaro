@@ -18,14 +18,21 @@ public class Oggetto {
     private final int valoreAttacco;
     private final int turni;
 
-    public Oggetto(
-            int id,
-            String nome,
-            String descrizione,
-            TipoOggetto tipo,
-            int valoreCura,
-            int valoreAttacco,
-            int turni) {
+    /**
+     * Crea un nuovo oggetto utilizzabile nel gioco.
+     *
+     * @param id identificativo univoco dell'oggetto
+     * @param nome nome dell'oggetto
+     * @param descrizione descrizione dell'effetto dell'oggetto
+     * @param tipo tipo di oggetto
+     * @param valoreCura valore di cura fornito dall'oggetto
+     * @param valoreAttacco valore di attacco fornito dall'oggetto
+     * @param turni numero di turni necessari o influenzati dall'oggetto
+     *
+     * @throws IllegalArgumentException se uno dei parametri non rispetta i vincoli previsti
+     */
+    public Oggetto(int id, String nome, String descrizione, TipoOggetto tipo, int valoreCura,
+            int valoreAttacco, int turni) {
 
         if (id <= 0) {
             throw new IllegalArgumentException("L'id dell'oggetto deve essere positivo");

@@ -12,7 +12,15 @@ public class CreatoreAbilita {
 
     private CreatoreAbilita() {
     }
-
+    /**
+     * Crea un'abilità a partire dai dati contenuti nel DTO.
+     * L'abilità viene costruita in base al tipo specificato nel DTO.
+     *
+     * @param dto dati necessari per la creazione dell'abilità
+     * @return l'abilità corrispondente al tipo indicato
+     * @throws IllegalArgumentException se il DTO è null,
+     *         se il tipo dell'abilità è vuoto o non valido
+     */
     public static Abilita crea(AbilitaDTO dto) {
         if (dto == null) {
             throw new IllegalArgumentException("Il DTO dell'abilita non puo essere null");
@@ -58,6 +66,6 @@ public class CreatoreAbilita {
     private static Abilita creaColpoAlleSpalle(AbilitaDTO dto) {
         return (utilizzatore, bersaglio) ->
                 bersaglio.prendiDanno(
-                        utilizzatore.getStatisticheAttuali().getAttacco() * dto.moltiplicatoreCritico);
+                        (int)(utilizzatore.getStatisticheAttuali().getAttacco() * dto.moltiplicatoreCritico));
     }
 }

@@ -4,6 +4,10 @@ import it.unicam.cs.mpgc.rpg129696.modelli.modificatori.ModificatoreTemporaneo;
 import it.unicam.cs.mpgc.rpg129696.modelli.modificatori.ModificatoreVeleno;
 import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.PersonaggioBase;
 
+/**
+ * Comportamento nemico che applica un effetto di danno nel tempo
+ * al bersaglio prima di effettuare un attacco.
+ */
 public class ComportamentoDoT implements ComportamentoNemico {
     private final int valoreEffetto;
     private final int durata;
@@ -24,5 +28,9 @@ public class ComportamentoDoT implements ComportamentoNemico {
             isAvvelenato = true;
         }
         nemico.attacca(bersaglio);
+    }
+    @Override
+    public ComportamentoNemico nuovaIstanza() {
+        return new ComportamentoDoT(valoreEffetto, durata);
     }
 }

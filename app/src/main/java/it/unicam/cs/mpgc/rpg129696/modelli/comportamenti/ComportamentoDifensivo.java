@@ -4,6 +4,10 @@ import it.unicam.cs.mpgc.rpg129696.modelli.modificatori.ModificatoreDifesa;
 import it.unicam.cs.mpgc.rpg129696.modelli.modificatori.ModificatoreTemporaneo;
 import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.PersonaggioBase;
 
+/**
+ * Comportamento difensivo che applica un bonus temporaneo alla difesa
+ * del nemico quando i suoi punti vita scendono sotto una determinata soglia.
+ */
 public class ComportamentoDifensivo implements ComportamentoNemico {
     private final int bonusDifesa;
     private final int durata;
@@ -23,5 +27,9 @@ public class ComportamentoDifensivo implements ComportamentoNemico {
             buffAttivo = true;
         }
         nemico.attacca(bersaglio);
+    }
+    @Override
+    public ComportamentoNemico nuovaIstanza() {
+        return new ComportamentoDifensivo(bonusDifesa, durata);
     }
 }

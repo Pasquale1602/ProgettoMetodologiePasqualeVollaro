@@ -25,6 +25,12 @@ public class PersonaggioLoader {
     private final AbilitaLoader abilitaLoader;
     private final static String PATH_PERSONAGGI = "/resources/personaggi.json";
 
+    /**
+     * Crea un loader per i personaggi utilizzando il loader delle abilità
+     * necessario per associare le abilità ai personaggi caricati.
+     *
+     * @param abilitaLoader loader utilizzato per caricare le abilità disponibili
+     */
     public PersonaggioLoader(AbilitaLoader abilitaLoader) {
         this.abilitaLoader = abilitaLoader;
     }

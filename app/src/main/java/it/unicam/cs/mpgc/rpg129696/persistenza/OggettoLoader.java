@@ -24,7 +24,7 @@ public class OggettoLoader {
      *
      * @param percorso il percorso del file JSON nelle risorse
      * @return lista di oggetti disponibili
-     * @throws RuntimeException se il file non viene trovato o e' malformato
+     * @throws RuntimeException se il file non viene trovato o è malformato
      */
     public List<Oggetto> carica(String percorso) {
         InputStream is = getClass().getResourceAsStream(percorso);
@@ -48,7 +48,14 @@ public class OggettoLoader {
             throw new RuntimeException("Errore nel caricamento degli oggetti da: " + percorso, e);
         }
     }
-
+    /**
+     * Converte un {@link OggettoDTO} in un oggetto {@link Oggetto}.
+     *
+     * @param dto il DTO contenente i dati dell'oggetto
+     * @return l'oggetto creato a partire dai dati del DTO
+     * @throws IllegalArgumentException se il DTO è null
+     *         o se il tipo dell'oggetto è vuoto
+     */
     private Oggetto converti(OggettoDTO dto) {
         if (dto == null) {
             throw new IllegalArgumentException("Il DTO dell'oggetto non puo essere null");
@@ -71,7 +78,7 @@ public class OggettoLoader {
     }
 
     /**
-     * Carica gli oggetti dal percorso di default.
+     * Carica gli oggetti dal file JSON predefinito presente nelle risorse.
      *
      * @return lista di oggetti disponibili
      */

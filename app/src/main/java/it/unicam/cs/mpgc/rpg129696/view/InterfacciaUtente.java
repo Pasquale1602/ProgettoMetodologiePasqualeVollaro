@@ -11,5 +11,10 @@ package it.unicam.cs.mpgc.rpg129696.view;
  */
 public interface InterfacciaUtente {
 
+    /**
+     * Mostra un messaggio prodotto dal gioco all'utente.
+     *
+     * @param messaggio testo da visualizzare
+     */
     void mostraMessaggio(String messaggio);
 }

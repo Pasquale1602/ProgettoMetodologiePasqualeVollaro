@@ -52,7 +52,7 @@ public class GestoreIncontri {
                 modello.getNome(),
                 new Statistiche(modello.getStatisticheBase()),
                 modello.getRicompensaEsperienza(),
-                modello.getComportamentoNemico(),
+                modello.getComportamentoNemico().nuovaIstanza(),
                 modello.getTipoComportamento()
         );
     }

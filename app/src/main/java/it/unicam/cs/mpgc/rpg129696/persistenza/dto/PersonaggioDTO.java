@@ -10,9 +10,6 @@ import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.Statistiche;
 public class PersonaggioDTO {
     public int id;
     public String nome;
-    public String descrizione;
-
     public Statistiche statistiche;
-
     public String tipoAbilita;
 }

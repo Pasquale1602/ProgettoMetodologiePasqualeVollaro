@@ -6,15 +6,29 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Classe responsabile della registrazione e del recupero degli effetti degli oggetti.
+ * Gestisce la registrazione e il recupero degli effetti associati ai tipi di oggetto.
+ * Gli effetti vengono memorizzati in un registro condiviso e recuperati in base al
+ * {@link TipoOggetto} associato.
  */
 public class CreatoreOggetto {
 
+
     private static final Map<TipoOggetto, EffettoOggetto> effettiRegistrati = new HashMap<>();
+
 
     private CreatoreOggetto() {
     }
-
+    /**
+     * Registra un effetto associandolo a un tipo di oggetto.
+     *
+     * Se era già presente un effetto associato allo stesso tipo, quello precedente
+     * viene sostituito.
+     *
+     * @param tipo tipo di oggetto a cui associare l'effetto
+     * @param effetto effetto da eseguire
+     *
+     * @throws IllegalArgumentException se il tipo o l'effetto sono null
+     */
     public static void registraEffetto(TipoOggetto tipo, EffettoOggetto effetto) {
         if (tipo == null) {
             throw new IllegalArgumentException("Il tipo oggetto non puo essere null");

@@ -14,5 +14,5 @@ public class AbilitaDTO {
     public int valoreCura;
     public int dannoVeleno;
     public int turni;
-    public int moltiplicatoreCritico;
+    public double moltiplicatoreCritico;
 }

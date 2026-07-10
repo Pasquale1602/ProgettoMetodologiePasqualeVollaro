@@ -20,6 +20,13 @@ public class ConsoleUI implements InterfacciaUtente {
         System.out.println(messaggio);
     }
 
+    /**
+     * Richiede all'utente la scelta dell'azione principale da eseguire
+     * tramite input da console.
+     *
+     * @return il valore scelto dall'utente:
+     *         1 per attacco base, 2 per abilità speciale, 3 per inventario
+     */
     public int richiediSceltaAzionePrincipale() {
         int scelta = -1;
         while (scelta < 1 || scelta > 3) {
@@ -38,6 +45,14 @@ public class ConsoleUI implements InterfacciaUtente {
         return scelta;
     }
 
+    /**
+     * Richiede all'utente quale oggetto utilizzare dall'inventario.
+     *
+     * @param inventario lista degli oggetti disponibili
+     * @return l'indice dell'oggetto scelto nell'inventario,
+     *         oppure -1 se l'inventario è vuoto, la scelta non è valida
+     *         o l'utente decide di tornare indietro
+     */
     public int richiediSceltaOggetto(List<Contenuto> inventario) {
         if (inventario.isEmpty()) {
             System.out.println("Inventario vuoto.");

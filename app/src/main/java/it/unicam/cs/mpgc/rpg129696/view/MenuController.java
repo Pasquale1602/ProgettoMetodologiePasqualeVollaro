@@ -99,10 +99,20 @@ public class MenuController {
         System.exit(0);
     }
 
+    /**
+     * Assegna un nuovo nemico casuale alla partita corrente.
+     *
+     * @param partita partita a cui assegnare il nemico
+     */
     private void assegnaNuovoNemico(Partita partita) {
         gestoreIncontri.assegnaNemicoCasuale(partita, configurazione.getNemici());
     }
 
+    /**
+     * Mostra un messaggio di errore tramite una finestra di dialogo JavaFX.
+     *
+     * @param messaggio testo dell'errore da visualizzare
+     */
     private void mostraErrore(String messaggio) {
         Alert alert = new Alert(Alert.AlertType.ERROR, messaggio);
         alert.setHeaderText(null);

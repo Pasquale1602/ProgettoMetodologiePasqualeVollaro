@@ -12,16 +12,32 @@ public class Statistiche {
     private final int difesa;
     private final int hpMassimi;
 
+    /**
+     * Crea un insieme di statistiche con valori iniziali pari a zero.
+     */
     public Statistiche() {
         this(0,0,0);
     }
 
+    /**
+     * Crea un insieme di statistiche con i valori specificati.
+     *
+     * @param attacco valore dell'attacco
+     * @param difesa valore della difesa
+     * @param hpMassimi punti vita massimi
+     */
     public Statistiche(int attacco, int difesa, int hpMassimi) {
         this.attacco = Math.max(0, attacco);
         this.difesa = Math.max(0, difesa);
         this.hpMassimi = Math.max(1, hpMassimi);
     }
 
+    /**
+     * Crea una copia delle statistiche fornite.
+     *
+     * @param other statistiche da copiare
+     * @throws IllegalArgumentException se le statistiche da copiare sono null
+     */
     public Statistiche(Statistiche other) {
         if (other == null) {
             throw new IllegalArgumentException("Le statistiche da copiare " +
@@ -39,7 +55,7 @@ public class Statistiche {
 
     /**
      * Somma due blocchi di statistiche restituendone uno nuovo
-     * @param altre le statistiche da sommmare a this
+     * @param altre le statistiche da sommare a quelle correnti
      * @return le nuove statistiche sommate
      */
     public Statistiche sommaStatistiche (Statistiche altre) {

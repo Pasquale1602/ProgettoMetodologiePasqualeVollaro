@@ -3,10 +3,18 @@ package it.unicam.cs.mpgc.rpg129696.modelli.comportamenti;
 import it.unicam.cs.mpgc.rpg129696.modelli.personaggio.PersonaggioBase;
 
 /**
- * Interfaccia che definisce il contratto per il comportamento dei nemici
- * Ogni strategia di combattimento deve implementare questo metodo
+ * Definisce il comportamento adottato da un nemico durante il combattimento.
+ * Ogni implementazione rappresenta una strategia diversa di azione durante un turno.
  */
 public interface ComportamentoNemico {
 
-    void eseguiTurno (PersonaggioBase nemico, PersonaggioBase bersaglio);
+    /**
+     * Esegue l'azione del nemico durante il proprio turno.
+     *
+     * @param nemico personaggio che esegue il comportamento
+     * @param bersaglio personaggio contro cui viene eseguita l'azione
+     */
+    void eseguiTurno(PersonaggioBase nemico, PersonaggioBase bersaglio);
+
+    ComportamentoNemico nuovaIstanza ();
 }

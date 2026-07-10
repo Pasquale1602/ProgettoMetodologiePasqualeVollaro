@@ -34,7 +34,7 @@ public class AbilitaLoader {
         InputStream is = getClass().getResourceAsStream(percorso);
 
         if (is == null) {
-            throw new RuntimeException("Errore: Il file json non è stato trovato nel percorso"+percorso);
+            throw new RuntimeException("Errore: Il file json non è stato trovato nel percorso " + percorso);
         }
              try( InputStreamReader reader = new InputStreamReader(is)) {
 
@@ -43,6 +43,10 @@ public class AbilitaLoader {
 
             Map<TipoAbilita, Abilita> abilita = new HashMap<>();
             for (AbilitaDTO dto : dtos) {
+                if (dto.tipo == null || dto.tipo.isBlank()) {
+                    throw new IllegalArgumentException("Il tipo dell'abilita non puo essere vuoto" +
+                            " (id: " + dto.id + ")");
+                }
                 TipoAbilita tipo = TipoAbilita.valueOf(dto.tipo.toUpperCase());
                 abilita.put(tipo, CreatoreAbilita.crea(dto));
             }
@@ -54,9 +58,10 @@ public class AbilitaLoader {
     }
 
     /**
-     * Carica le abilità dal percorso di default.
+     * Carica le abilità dal file JSON predefinito presente nelle risorse.
      *
-     * @return mappa da {@link TipoAbilita} a {@link Abilita}
+     * @return mappa contenente le abilità indicizzate per {@link TipoAbilita}
+     * @throws RuntimeException se il file non viene trovato o è malformato
      */
     public Map<TipoAbilita, Abilita> caricaAbilita() {
         return carica("/resources/abilita.json");

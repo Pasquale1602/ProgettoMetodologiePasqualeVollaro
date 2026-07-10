@@ -1,14 +1,23 @@
 {
   "nomeUtente": "Giocatore",
-  "nomePersonaggio": "Macellaio",
+  "nomePersonaggio": "Crociato dell\u0027Apocalisse",
   "livello": 1,
-  "esperienza": 40,
+  "esperienza": 65,
   "esperienzaPerLivelloSuccessivo": 100,
   "hpAttuali": 60,
-  "combattimentiVinti": 2,
-  "ultimoSalvataggio": "2026-07-08T15:11:32.800434400",
-  "nomeNemico": "Saccheggiatore",
-  "hpNemico": 33,
-  "comportamentoNemico": "AGGRESSIVO",
-  "inventario": []
+  "combattimentiVinti": 3,
+  "ultimoSalvataggio": "2026-07-10T15:44:22.675410700",
+  "nomeNemico": "Fanatico",
+  "hpNemico": 74,
+  "comportamentoNemico": "DIFENSIVO",
+  "inventario": [
+    {
+      "idOggetto": 2,
+      "quantita": 1
+    },
+    {
+      "idOggetto": 3,
+      "quantita": 1
+    }
+  ]
 }

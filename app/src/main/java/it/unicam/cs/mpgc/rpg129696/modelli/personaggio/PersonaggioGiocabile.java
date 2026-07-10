@@ -3,6 +3,12 @@ package it.unicam.cs.mpgc.rpg129696.modelli.personaggio;
 import it.unicam.cs.mpgc.rpg129696.modelli.abilita.Abilita;
 import it.unicam.cs.mpgc.rpg129696.modelli.oggetti.Inventario;
 
+/**
+ * Rappresenta un personaggio controllabile dal giocatore.
+ *
+ * Estende {@link PersonaggioBase} aggiungendo un'abilità speciale
+ * e un inventario personale.
+ */
 public class PersonaggioGiocabile extends PersonaggioBase{
 
     private final Abilita abilita;
@@ -11,7 +17,14 @@ public class PersonaggioGiocabile extends PersonaggioBase{
     private static final int BONUS_DIFESA_PER_LIVELLO = 2;
     private static final int BONUS_HP_PER_LIVELLO = 10;
 
-
+    /**
+     * Crea un nuovo personaggio giocabile.
+     *
+     * @param nome nome del personaggio
+     * @param statisticheBase statistiche iniziali del personaggio
+     * @param abilita abilità speciale associata al personaggio
+     * @throws IllegalArgumentException se l'abilità è null
+     */
     public PersonaggioGiocabile(String nome, Statistiche statisticheBase, Abilita abilita) {
         super(nome, statisticheBase);
 
@@ -35,7 +48,11 @@ public class PersonaggioGiocabile extends PersonaggioBase{
 
         abilita.eseguiAbilita(this, bersaglio);
     }
-
+    /**
+     * Applica i bonus alle statistiche ottenuti salendo di livello.
+     *
+     * @param quantiLivelli numero di livelli guadagnati
+     */
     public void riceviBonusLevelUp(int quantiLivelli) {
         if (quantiLivelli <= 0) return;
 

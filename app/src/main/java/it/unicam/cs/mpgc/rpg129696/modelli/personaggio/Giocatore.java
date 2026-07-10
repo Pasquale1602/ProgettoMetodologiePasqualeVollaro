@@ -1,15 +1,27 @@
 package it.unicam.cs.mpgc.rpg129696.modelli.personaggio;
-
+/**
+ * Rappresenta il giocatore della partita.
+ *
+ * Contiene il nome utente, il personaggio scelto e la progressione
+ * con livello ed esperienza.
+ */
 public class Giocatore {
 
     private final String nomeUtente;
     private PersonaggioGiocabile personaggio;
     private Progressione progressione;
 
-
+    /**
+     * Crea un nuovo giocatore.
+     *
+     * @param nomeUtente nome del giocatore
+     * @param personaggio personaggio controllato dal giocatore
+     * @param progressione progressione del giocatore
+     * @throws IllegalArgumentException se uno dei parametri non è valido
+     */
     public Giocatore(String nomeUtente, PersonaggioGiocabile personaggio, Progressione progressione) {
         if (nomeUtente == null || nomeUtente.isBlank()) {
-            throw new IllegalArgumentException("Il nome utente non puo essere vuoto");
+            throw new IllegalArgumentException("Il nome utente non puo essere null o vuoto");
         }
         if (personaggio == null) {
             throw new IllegalArgumentException("Il personaggio non puo essere null");
@@ -22,7 +34,13 @@ public class Giocatore {
         this.personaggio = personaggio;
         this.progressione = progressione;
     }
-
+    /**
+     * Aggiunge esperienza al giocatore e applica eventuali bonus
+     * derivanti dai livelli ottenuti.
+     *
+     * @param esperienza esperienza da aggiungere
+     * @return numero di livelli guadagnati
+     */
     public int aggiungiEsperienza(int esperienza) {
         int livelliGuadagnati = progressione.aggiungiEsperienza(esperienza);
 

@@ -8,7 +8,16 @@ public class Progressione {
     private int esperienza;
     private int esperienzaPerLivelloSuccessivo;
 
-
+    /**
+     * Crea una nuova progressione per un personaggio.
+     *
+     * @param livello livello iniziale del personaggio
+     * @param esperienza esperienza accumulata
+     * @param esperienzaPerLivelloSuccessivo esperienza necessaria per il livello successivo
+     * @throws IllegalArgumentException se il livello è minore o uguale a zero,
+     *         l'esperienza è negativa o l'esperienza richiesta per il livello successivo
+     *         non è positiva
+     */
     public Progressione(int livello, int esperienza, int esperienzaPerLivelloSuccessivo) {
         if (livello <= 0) {
             throw new IllegalArgumentException("Il livello deve essere maggiore di zero");
@@ -50,11 +59,11 @@ public class Progressione {
     public int getEsperienza() { return this.esperienza; }
     public int getEsperienzaPerLivelloSuccessivo() {return this.esperienzaPerLivelloSuccessivo;}
 
+
     /**
-     * /**
-     *  * Aumenta il livello di uno e aggiorna l'esperienza richiesta
-     *  * per il livello successivo.
-     *  */
+     * Aumenta il livello di uno e aggiorna l'esperienza richiesta
+     * per il livello successivo.
+     */
     public void saliLivello() {
         this.livello++;
         this.esperienzaPerLivelloSuccessivo = (int) (esperienzaPerLivelloSuccessivo * 1.5);
